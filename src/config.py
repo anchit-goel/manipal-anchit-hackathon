@@ -33,10 +33,12 @@ SOCIAL_POSTS_FILE = SOCIAL_RAW_DIR / "synthetic_posts.json"
 # API keys & Providers
 NEWSAPI_KEY = os.getenv("NEWSAPI_KEY", "").strip()
 LLM_PROVIDER = os.getenv("LLM_PROVIDER", "gemini").strip().lower()
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "").strip()
 LLM_API_KEY = (
     os.getenv("LLM_API_KEY", "")
-    or os.getenv("GEMINI_API_KEY", "")
-    or os.getenv("OPENAI_API_KEY", "")
+    or GEMINI_API_KEY
+    or OPENAI_API_KEY
 ).strip()
 
 # Offline mode determination
