@@ -1,0 +1,21 @@
+ticker,name,aliases,sector,country,sector_etf
+JPM,JPMorgan Chase,JPMorgan|JPMorgan Chase|J.P. Morgan|Chase,Banking,USA,XLF
+BAC,Bank of America,Bank of America|BofA|Merrill Lynch,Banking,USA,XLF
+C,Citigroup,Citigroup|Citi|Citibank,Banking,USA,XLF
+HDB,HDFC Bank,HDFC Bank|HDFC,Banking,IND,INDA
+ICICIBANK.NS,ICICI Bank,ICICI Bank|ICICI,Banking,IND,INDA
+HSBA.L,HSBC Holdings,HSBC|HSBC Holdings|Hongkong and Shanghai Banking,Banking,GBR,XLF
+XOM,ExxonMobil,ExxonMobil|Exxon|Mobil,Energy,USA,XLE
+CVX,Chevron,Chevron|Chevron Corp,Energy,USA,XLE
+SHEL,Shell plc,Shell|Royal Dutch Shell|Shell plc,Energy,GBR,XLE
+BP,BP plc,BP|British Petroleum|BP plc,Energy,GBR,XLE
+MAERSK-B.CO,A.P. Moller - Maersk,Maersk|A.P. Moller|Maersk Line,Shipping,DNK,BDRY
+ZIM,ZIM Integrated Shipping,ZIM|Zim Integrated|ZIM Shipping,Shipping,ISR,BDRY
+NVDA,NVIDIA,NVIDIA|Nvidia|Nvidia Corp,Semiconductors,USA,SMH
+TSM,TSMC,TSMC|Taiwan Semiconductor|Taiwan Semiconductor Manufacturing,Semiconductors,TWN,SMH
+AAPL,Apple Inc.,Apple|Apple Inc,Technology,USA,XLK
+MSFT,Microsoft,Microsoft|MSFT|Microsoft Corp,Technology,USA,XLK
+TSLA,Tesla,Tesla|Tesla Inc|Tesla Motors,Automotive,USA,XLY
+TM,Toyota Motor,Toyota|Toyota Motor|Toyota Corp,Automotive,JPN,CARZ
+BA,Boeing,Boeing|Boeing Co|Boeing Commercial,Aerospace,USA,ITA
+DAL,Delta Air Lines,Delta Air Lines|Delta Airlines|Delta Air,Airlines,USA,JETS
