@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+.venv/
+venv/
+ENV/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environment variables & secrets
+.env
+.env.local
+*.secret
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local data cache
+data/cache/
+data/raw/newsapi/*.json
+data/raw/gdelt/*.json
+!data/raw/newsapi/sample_news.json
+!data/raw/gdelt/sample_gdelt.json
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,19 @@
+# Core Schemas & Validation
+pydantic>=2.7.0,<3.0.0
+python-dotenv>=1.0.0
+
+# HTTP & Data Ingestion
+requests>=2.31.0,<3.0.0
+pandas>=2.2.0
+
+# Market Data & Stress Testing
+yfinance>=0.2.36
+
+# API & Dashboard
+fastapi>=0.110.0
+uvicorn>=0.28.0
+streamlit>=1.32.0
+plotly>=5.20.0
+
+# Testing
+pytest>=8.0.0
