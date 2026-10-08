@@ -1,0 +1,54 @@
+{
+  "articles": [
+    {
+      "url": "https://www.reuters.com/business/finance/citigroup-completes-cross-border-syndication-2026-10",
+      "url_mobile": "",
+      "title": "Citigroup arranges multi-billion syndicated cross-border debt facility for industrial infrastructure",
+      "seendate": "20261008T163000Z",
+      "socialimage": "https://reuters.com/images/citi.jpg",
+      "domain": "reuters.com",
+      "language": "English",
+      "sourcecountry": "United States"
+    },
+    {
+      "url": "https://www.ft.com/content/red-sea-freight-rates-zim-maersk-2026",
+      "url_mobile": "",
+      "title": "Red Sea shipping diversions force ZIM Shipping and Maersk to reroute fleets, driving container spot rates higher",
+      "seendate": "20261008T131000Z",
+      "socialimage": "https://ft.com/images/shipping.jpg",
+      "domain": "ft.com",
+      "language": "English",
+      "sourcecountry": "United Kingdom"
+    },
+    {
+      "url": "https://www.bloomberg.com/news/articles/2026-10/tsmc-advances-packaging-capacity",
+      "url_mobile": "",
+      "title": "TSMC signals tight high-bandwidth memory packaging through next quarter as AI semiconductor demand surges",
+      "seendate": "20261007T210000Z",
+      "socialimage": "https://bloomberg.com/images/tsmc.jpg",
+      "domain": "bloomberg.com",
+      "language": "English",
+      "sourcecountry": "United States"
+    },
+    {
+      "url": "https://www.wsj.com/articles/boeing-secures-widebody-delivery-schedule-2026",
+      "url_mobile": "",
+      "title": "Boeing delivers initial batch of modified 777X widebody freighters following rigorous FAA safety inspections",
+      "seendate": "20261007T104500Z",
+      "socialimage": "https://wsj.com/images/boeing.jpg",
+      "domain": "wsj.com",
+      "language": "English",
+      "sourcecountry": "United States"
+    },
+    {
+      "url": "https://www.cnbc.com/2026/10/06/hsbc-expands-commercial-banking-services-in-asia.html",
+      "url_mobile": "",
+      "title": "HSBC Holdings announces expansion of Asian trade finance operations targeting green supply chain financing",
+      "seendate": "20261006T152000Z",
+      "socialimage": "https://cnbc.com/images/hsbc.jpg",
+      "domain": "cnbc.com",
+      "language": "English",
+      "sourcecountry": "United States"
+    }
+  ]
+}
