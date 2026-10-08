@@ -3,54 +3,74 @@
   "totalResults": 5,
   "articles": [
     {
-      "source": {"id": "reuters", "name": "Reuters"},
+      "source": {
+        "id": "reuters",
+        "name": "Reuters"
+      },
       "author": "Financial Desk",
       "title": "JPMorgan Chase expands corporate credit facility amidst tightening commercial liquidity",
       "description": "JPMorgan Chase announced an expanded syndicated loan framework to assist large corporate clients navigating higher borrowing rates.",
       "url": "https://www.reuters.com/business/finance/jpmorgan-chase-expands-corporate-credit-facility-2026-10",
       "urlToImage": "https://reuters.com/images/jpm.jpg",
       "publishedAt": "2026-10-08T14:30:00Z",
-      "content": "JPMorgan Chase reported that its wholesale banking division has syndicated over $15B in multi-currency credit lines."
+      "content": "JPMorgan Chase reported that its wholesale banking division has syndicated over $15B in multi-currency credit lines.",
+      "is_synthetic": true
     },
     {
-      "source": {"id": "bloomberg", "name": "Bloomberg"},
+      "source": {
+        "id": "bloomberg",
+        "name": "Bloomberg"
+      },
       "author": "Maritime Logistics Bureau",
       "title": "Maersk reroutes container vessels via Cape of Good Hope following Red Sea security alert",
       "description": "A.P. Moller - Maersk has instructed all merchant vessels to avoid Bab el-Mandeb strait due to heightened drone and missile risks, adding 12 days to transit times.",
       "url": "https://www.bloomberg.com/news/articles/2026-10/maersk-reroutes-vessels-red-sea",
       "urlToImage": "https://bloomberg.com/images/maersk.jpg",
       "publishedAt": "2026-10-08T11:15:00Z",
-      "content": "Shipping giant Maersk announced severe schedule adjustments as freight rates on Asia-Europe corridors surged 40%."
+      "content": "Shipping giant Maersk announced severe schedule adjustments as freight rates on Asia-Europe corridors surged 40%.",
+      "is_synthetic": true
     },
     {
-      "source": {"id": "financial-times", "name": "Financial Times"},
+      "source": {
+        "id": "financial-times",
+        "name": "Financial Times"
+      },
       "author": "Tech & Energy Reporting",
       "title": "ExxonMobil and Chevron report record upstream cash flows while refining margins soften",
       "description": "US energy majors ExxonMobil and Chevron posted resilient quarterly upstream earnings, offsetting softer retail fuel margins.",
       "url": "https://www.ft.com/content/exxon-chevron-q3-results-2026",
       "urlToImage": "https://ft.com/images/oil.jpg",
       "publishedAt": "2026-10-07T18:45:00Z",
-      "content": "ExxonMobil CEO highlighted strong Permian basin output while keeping capital expenditure guidance disciplined."
+      "content": "ExxonMobil CEO highlighted strong Permian basin output while keeping capital expenditure guidance disciplined.",
+      "is_synthetic": true
     },
     {
-      "source": {"id": "wall-street-journal", "name": "The Wall Street Journal"},
+      "source": {
+        "id": "wall-street-journal",
+        "name": "The Wall Street Journal"
+      },
       "author": "Semiconductor Analysis",
       "title": "NVIDIA and TSMC accelerate Blackwell Ultra AI processor volume production",
       "description": "TSMC confirmed full capacity utilization on advanced 3nm packaging lines dedicated to NVIDIA's next-generation data center accelerators.",
       "url": "https://www.wsj.com/articles/nvidia-tsmc-accelerate-production-2026",
       "urlToImage": "https://wsj.com/images/nvda.jpg",
       "publishedAt": "2026-10-07T09:20:00Z",
-      "content": "Strong demand from hyperscalers including Microsoft and Google ensures high backlogs into 2027."
+      "content": "Strong demand from hyperscalers including Microsoft and Google ensures high backlogs into 2027.",
+      "is_synthetic": true
     },
     {
-      "source": {"id": "economic-times", "name": "The Economic Times"},
+      "source": {
+        "id": "economic-times",
+        "name": "The Economic Times"
+      },
       "author": "Banking Bureau",
       "title": "HDFC Bank and ICICI Bank report stable asset quality with retail credit expansion",
       "description": "Leading Indian private lenders HDFC Bank and ICICI Bank posted resilient loan growth and stable gross non-performing asset ratios for the fiscal quarter.",
       "url": "https://economictimes.indiatimes.com/industry/banking/hdfc-icici-results-2026",
       "urlToImage": "https://economictimes.indiatimes.com/images/banks.jpg",
       "publishedAt": "2026-10-06T12:00:00Z",
-      "content": "HDFC Bank credit book expanded by 14% year-on-year, supported by strong urban consumer and wholesale corporate demand."
+      "content": "HDFC Bank credit book expanded by 14% year-on-year, supported by strong urban consumer and wholesale corporate demand.",
+      "is_synthetic": true
     }
   ]
 }

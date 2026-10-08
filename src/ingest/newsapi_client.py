@@ -56,7 +56,7 @@ class NewsAPIClient(BaseIngestClient):
             author=author_name,
             engagement={},
             query_tag=query_tag,
-            is_synthetic=False,
+            is_synthetic=bool(article.get("is_synthetic", False)),
         )
 
     def _load_local_raw_files(self) -> List[Dict[str, Any]]:
