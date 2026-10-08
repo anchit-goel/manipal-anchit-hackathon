@@ -83,6 +83,20 @@ class Signal(BaseModel):
         description="Signal confidence score based on corroboration and model checks"
     )
     rationale: str = Field(..., description="Chain of thought explanation for impact & class")
+    trigger_eligible: bool = Field(
+        default=False,
+        description="Whether signal triggers wholesale portfolio stress tests"
+    )
+    finbert_sentiment: Optional[float] = Field(
+        default=None,
+        ge=-1.0,
+        le=1.0,
+        description="Independent FinBERT sentiment cross-check score"
+    )
+    confidence_parts: Dict[str, float] = Field(
+        default_factory=dict,
+        description="Component breakdown of multi-factor confidence calculation"
+    )
     model_versions: Dict[str, str] = Field(
         default_factory=dict,
         description="Version tags of NLP models and LLM extractors used"

@@ -21,14 +21,45 @@ NEWSAPI_RAW_DIR = RAW_DIR / "newsapi"
 GDELT_RAW_DIR = RAW_DIR / "gdelt"
 SOCIAL_RAW_DIR = RAW_DIR / "social"
 CACHE_DIR = DATA_DIR / "cache"
+LLM_CACHE_DIR = CACHE_DIR / "llm"
 PROCESSED_DIR = DATA_DIR / "processed"
 REPLAY_DIR = DATA_DIR / "replay"
+EVAL_DIR = DATA_DIR / "eval"
 
 # Key file paths
 UNIVERSE_CSV = DATA_DIR / "universe.csv"
 PROCESSED_ITEMS_FILE = PROCESSED_DIR / "raw_items.jsonl"
+SIGNALS_PROCESSED_FILE = PROCESSED_DIR / "signals.jsonl"
 REPLAY_EVENTS_FILE = REPLAY_DIR / "demo_events.jsonl"
 SOCIAL_POSTS_FILE = SOCIAL_RAW_DIR / "synthetic_posts.json"
+GOLD_EVAL_FILE = EVAL_DIR / "gold.jsonl"
+
+# Engine Parameters & Thresholds
+MAX_LLM_CALLS = int(os.getenv("MAX_LLM_CALLS", "150"))
+TRIGGER_IMPACT_THRESHOLD = 7.0
+TRIGGER_CONFIDENCE_THRESHOLD = 0.6
+
+# Source Reliability Priors
+SOURCE_RELIABILITY_TABLE = {
+    "reuters": 0.85,
+    "bloomberg": 0.85,
+    "financial times": 0.85,
+    "the wall street journal": 0.85,
+    "newsapi": 0.80,
+    "gdelt": 0.65,
+    "social/x": 0.35,
+    "default_news": 0.75,
+    "default_social": 0.35,
+}
+
+# Confidence Component Weights (sum = 1.0)
+CONFIDENCE_WEIGHTS = {
+    "source_reliability": 0.30,
+    "corroboration": 0.25,
+    "sentiment_agreement": 0.20,
+    "self_consistency": 0.15,
+    "claim_certainty": 0.10,
+}
 
 # API keys & Providers
 NEWSAPI_KEY = os.getenv("NEWSAPI_KEY", "").strip()
