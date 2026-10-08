@@ -32,8 +32,9 @@ htmlcov/
 data/cache/
 data/raw/newsapi/*.json
 data/raw/gdelt/*.json
-!data/raw/newsapi/sample_news.json
-!data/raw/gdelt/sample_gdelt.json
+!data/raw/newsapi/sample_news_illustrative.json
+!data/raw/gdelt/sample_gdelt_illustrative.json
+!data/raw/gdelt/gdelt_real_pull.json
 
 # OS files
 .DS_Store
