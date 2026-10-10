@@ -1,0 +1,51 @@
+position_id,asset_type,subtype,counterparty,ticker,sector,country,region,rating,market_value,notional,duration,maturity_years,delta,collateral_pct,tags,synthetic
+pos_001,loan,trade_finance,ZIM Integrated Shipping,ZIM,Shipping,ISR,Middle East,BB,39650000.0,39650000.0,0.0,1.0,0.0,0.25,shipping|trade_finance|asia_trade,True
+pos_002,loan,trade_finance,A.P. Moller - Maersk,MAERSK-B.CO,Shipping,DNK,Europe,BBB,50560000.0,50560000.0,0.0,1.0,0.0,0.25,shipping|trade_finance|asia_trade,True
+pos_003,loan,trade_finance,Toyota Motor,TM,Automotive,JPN,Asia,A,27510000.0,27510000.0,0.0,1.0,0.0,0.25,trade_finance|asia_trade|automotive,True
+pos_004,loan,trade_finance,HDFC Bank,HDB,Banking,IND,Asia,BBB,38580000.0,38580000.0,0.0,1.0,0.0,0.1,trade_finance|asia_trade|india_banking,True
+pos_005,loan,revolver,ZIM Integrated Shipping,ZIM,Shipping,ISR,Middle East,BB,42220000.0,42220000.0,0.0,3.0,0.0,0.0,shipping|asia_trade,True
+pos_006,loan,term_loan,A.P. Moller - Maersk,MAERSK-B.CO,Shipping,DNK,Europe,BBB,49860000.0,49860000.0,0.0,5.0,0.0,0.2,shipping|asia_trade,True
+pos_007,loan,revolver,ExxonMobil,XOM,Energy,USA,North America,AA,55690000.0,55690000.0,0.0,3.0,0.0,0.2,energy_producer,True
+pos_008,loan,term_loan,Chevron,CVX,Energy,USA,North America,AA,44870000.0,44870000.0,0.0,5.0,0.0,0.4,energy_producer,True
+pos_009,loan,revolver,Shell plc,SHEL,Energy,GBR,Europe,A,41720000.0,41720000.0,0.0,3.0,0.0,0.0,energy_producer,True
+pos_010,loan,term_loan,BP plc,BP,Energy,GBR,Europe,A,37690000.0,37690000.0,0.0,5.0,0.0,0.2,energy_producer,True
+pos_011,loan,revolver,Delta Air Lines,DAL,Airlines,USA,North America,BB,49200000.0,49200000.0,0.0,3.0,0.0,0.2,airline|energy_consumer,True
+pos_012,loan,term_loan,Delta Air Lines,DAL,Airlines,USA,North America,BB,34780000.0,34780000.0,0.0,6.0,0.0,0.4,airline|energy_consumer,True
+pos_013,loan,term_loan,Boeing,BA,Aerospace,USA,North America,BBB,41640000.0,41640000.0,0.0,5.0,0.0,0.2,aerospace|airline_supplier,True
+pos_014,loan,revolver,Tesla,TSLA,Automotive,USA,North America,BB,35000000.0,35000000.0,0.0,3.0,0.0,0.2,automotive|chip_dependent,True
+pos_015,loan,revolver,NVIDIA,NVDA,Semiconductors,USA,North America,A,33940000.0,33940000.0,0.0,3.0,0.0,0.4,semiconductor|tech,True
+pos_016,loan,term_loan,TSMC,TSM,Semiconductors,TWN,Asia,AA,37530000.0,37530000.0,0.0,5.0,0.0,0.2,semiconductor|asia_trade,True
+pos_017,loan,term_loan,ICICI Bank,ICICIBANK.NS,Banking,IND,Asia,BBB,22780000.0,22780000.0,0.0,4.0,0.0,0.2,india_banking|asia_trade,True
+pos_018,loan,revolver,Microsoft,MSFT,Technology,USA,North America,AAA,37850000.0,37850000.0,0.0,3.0,0.0,0.4,tech,True
+pos_019,bond,ig_bond,JPMorgan Chase,JPM,Banking,USA,North America,A,43840000.0,43840000.0,5.1,6.0,0.0,0.0,us_banking|rate_sensitive,True
+pos_020,bond,ig_bond,Bank of America,BAC,Banking,USA,North America,A,36700000.0,36700000.0,6.0,7.0,0.0,0.0,us_banking|rate_sensitive,True
+pos_021,bond,ig_bond,Citigroup,C,Banking,USA,North America,BBB,38870000.0,38870000.0,6.0,7.0,0.0,0.0,us_banking|rate_sensitive,True
+pos_022,bond,ig_bond,HSBC Holdings,HSBA.L,Banking,GBR,Europe,A,26990000.0,26990000.0,5.1,6.0,0.0,0.0,eu_banking|rate_sensitive,True
+pos_023,bond,ig_bond,ExxonMobil,XOM,Energy,USA,North America,AA,28520000.0,28520000.0,6.8,8.0,0.0,0.0,energy_producer|rate_sensitive,True
+pos_024,bond,ig_bond,Shell plc,SHEL,Energy,GBR,Europe,A,24430000.0,24430000.0,6.0,7.0,0.0,0.0,energy_producer|rate_sensitive,True
+pos_025,bond,ig_bond,Apple Inc.,AAPL,Technology,USA,North America,AA,25920000.0,25920000.0,7.6,9.0,0.0,0.0,tech|rate_sensitive,True
+pos_026,bond,ig_bond,A.P. Moller - Maersk,MAERSK-B.CO,Shipping,DNK,Europe,BBB,28050000.0,28050000.0,4.2,5.0,0.0,0.0,shipping|asia_trade,True
+pos_027,bond,hy_bond,Delta Air Lines,DAL,Airlines,USA,North America,BB,27950000.0,27950000.0,4.2,5.0,0.0,0.0,airline|energy_consumer,True
+pos_028,bond,hy_bond,ZIM Integrated Shipping,ZIM,Shipping,ISR,Middle East,BB,10040000.0,10040000.0,3.4,4.0,0.0,0.0,shipping|asia_trade,True
+pos_029,bond,hy_bond,Tesla,TSLA,Automotive,USA,North America,BB,23680000.0,23680000.0,4.2,5.0,0.0,0.0,automotive|chip_dependent,True
+pos_030,bond,hy_bond,Boeing,BA,Aerospace,USA,North America,BB,26840000.0,26840000.0,5.1,6.0,0.0,0.0,aerospace|airline_supplier,True
+pos_031,derivative,irs,JPMorgan Chase,JPM,Banking,USA,North America,A,5668000.0,283410000.0,0.0,7.0,0.46,0.9,us_banking|rate_sensitive|rates,True
+pos_032,derivative,irs,Citigroup,C,Banking,USA,North America,BBB,4713000.0,235650000.0,0.0,5.0,0.5,0.5,us_banking|rate_sensitive|rates,True
+pos_033,derivative,irs,HSBC Holdings,HSBA.L,Banking,GBR,Europe,A,3918000.0,195920000.0,0.0,5.0,0.48,0.5,eu_banking|rate_sensitive|rates,True
+pos_034,derivative,irs,Bank of America,BAC,Banking,USA,North America,A,3230000.0,161520000.0,0.0,5.0,0.56,0.5,us_banking|rate_sensitive|rates,True
+pos_035,derivative,fx_forward,A.P. Moller - Maersk,MAERSK-B.CO,Shipping,DNK,Europe,BBB,2786000.0,139290000.0,0.0,1.0,0.49,0.9,shipping|asia_trade|fx,True
+pos_036,derivative,fx_forward,Toyota Motor,TM,Automotive,JPN,Asia,A,1246000.0,62290000.0,0.0,1.0,0.49,0.7,automotive|asia_trade|fx,True
+pos_037,derivative,commodity_swap,Delta Air Lines,DAL,Airlines,USA,North America,BB,3719000.0,185930000.0,0.0,2.0,-0.6,0.7,airline|energy_consumer|oil,True
+pos_038,derivative,commodity_swap,Chevron,CVX,Energy,USA,North America,AA,2689000.0,134450000.0,0.0,2.0,0.5,0.7,energy_producer|oil,True
+pos_039,derivative,commodity_swap,ExxonMobil,XOM,Energy,USA,North America,AA,2495000.0,124750000.0,0.0,2.0,0.5,0.9,energy_producer|oil,True
+pos_040,derivative,commodity_swap,Shell plc,SHEL,Energy,GBR,Europe,A,2834000.0,141690000.0,0.0,2.0,0.4,0.7,energy_producer|oil,True
+pos_041,equity,strategic,JPMorgan Chase,JPM,Banking,USA,North America,,23370000.0,23370000.0,0.0,0.0,0.0,0.0,us_banking,True
+pos_042,equity,strategic,Citigroup,C,Banking,USA,North America,,26400000.0,26400000.0,0.0,0.0,0.0,0.0,us_banking,True
+pos_043,equity,strategic,HSBC Holdings,HSBA.L,Banking,GBR,Europe,,16920000.0,16920000.0,0.0,0.0,0.0,0.0,eu_banking,True
+pos_044,equity,strategic,NVIDIA,NVDA,Semiconductors,USA,North America,,33880000.0,33880000.0,0.0,0.0,0.0,0.0,semiconductor|tech,True
+pos_045,equity,strategic,TSMC,TSM,Semiconductors,TWN,Asia,,34650000.0,34650000.0,0.0,0.0,0.0,0.0,semiconductor|asia_trade,True
+pos_046,equity,strategic,ExxonMobil,XOM,Energy,USA,North America,,15690000.0,15690000.0,0.0,0.0,0.0,0.0,energy_producer,True
+pos_047,equity,strategic,Delta Air Lines,DAL,Airlines,USA,North America,,16990000.0,16990000.0,0.0,0.0,0.0,0.0,airline|energy_consumer,True
+pos_048,equity,strategic,A.P. Moller - Maersk,MAERSK-B.CO,Shipping,DNK,Europe,,16790000.0,16790000.0,0.0,0.0,0.0,0.0,shipping|asia_trade,True
+pos_049,equity,strategic,Microsoft,MSFT,Technology,USA,North America,,23720000.0,23720000.0,0.0,0.0,0.0,0.0,tech,True
+pos_050,equity,strategic,Boeing,BA,Aerospace,USA,North America,,15760000.0,15760000.0,0.0,0.0,0.0,0.0,aerospace|airline_supplier,True
