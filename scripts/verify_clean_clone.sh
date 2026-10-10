@@ -104,7 +104,7 @@ PNL_ABS=$(echo "$STRESS_RESP" | grep -o '"pnl_abs":[^,]*' | cut -d: -f2)
 echo "  -> POST /stress/custom (shipping_disruption, sev=8.5) dollar PnL: \$$PNL_ABS"
 
 # Replay stream SSE check (read first few lines)
-STREAM_HEADER=$(curl -N -s "http://127.0.0.1:$TEST_PORT/replay/stream?speed=20" | head -n 4)
+STREAM_HEADER=$( (curl -N -s --max-time 3 "http://127.0.0.1:$TEST_PORT/replay/stream?speed=20" || true) | head -n 4 )
 if echo "$STREAM_HEADER" | grep -q "event:"; then
   echo "  -> GET /replay/stream SSE successfully streamed live events"
 fi
