@@ -1,108 +1,166 @@
 import React from 'react'
-import { BookOpen, ShieldAlert, Cpu, CheckCircle2, GitBranch } from 'lucide-react'
+import {
+  ArrowRight,
+  ShieldCheck,
+  CheckCircle2,
+  Database,
+  Cpu,
+  Sliders,
+  Filter,
+  TrendingDown,
+} from 'lucide-react'
 
 export const MethodologyTab: React.FC = () => {
+  const steps = [
+    {
+      step: '1. Ingest',
+      title: 'Multi-source ingestion',
+      desc: 'Ingests NewsAPI, GDELT, and social chatter feeds. Deduplicates by headline signature and grounds entities to the 50-counterparty universe.',
+      icon: Database,
+    },
+    {
+      step: '2. Extract',
+      title: 'Dual NLP extraction',
+      desc: 'Gemini LLM (with backoff & cache) extracts event classes, macro themes, and severity. Always-offline rules fallback guarantees continuity.',
+      icon: Cpu,
+    },
+    {
+      step: '3. Calibrate',
+      title: 'Empirical scaling',
+      desc: 'Maps qualitative scores (1–10) to historical Cumulative Abnormal Returns (CAR) fitted across 24 ground-truth historical crisis events.',
+      icon: Sliders,
+    },
+    {
+      step: '4. Gate',
+      title: 'Trigger & debounce gate',
+      desc: 'Suppresses unverified rumors (confidence < 0.70) and non-material news. Debounces recurring theme headlines across a rolling 48-hour window.',
+      icon: Filter,
+    },
+    {
+      step: '5. Stress',
+      title: 'Portfolio transmission',
+      desc: 'Propagates theme shocks across loans, bonds, equities, and derivatives using exposure tags, duration, collateral, and delta sensitivities.',
+      icon: TrendingDown,
+    },
+  ]
+
   return (
-    <div className="glass-panel rounded-2xl p-6 max-w-4xl mx-auto h-full overflow-y-auto space-y-6 text-xs font-sans leading-relaxed">
-      <div className="border-b border-slate-800 pb-3">
-        <h2 className="text-base font-semibold text-slate-100 flex items-center gap-2">
-          <BookOpen className="w-5 h-5 text-cyan-400" />
-          <span>Institutional Methodology &amp; Mathematical Framework</span>
-        </h2>
-        <p className="text-xs text-slate-400 mt-1">
-          Detailed technical specifications of the Signal-to-Shock wholesale risk intelligence platform.
+    <div className="bg-white border border-[#E3E6EB] rounded-lg p-6 space-y-6 text-left max-w-5xl mx-auto text-xs">
+      {/* Header */}
+      <div className="border-b border-[#E3E6EB] pb-3">
+        <h2 className="text-base font-bold text-[#0F1B2D]">Methodology &amp; Architecture</h2>
+        <p className="text-xs text-[#5B6676] mt-0.5">
+          End-to-end mathematical specifications and transmission mechanics for wholesale banking stress testing.
         </p>
+      </div>
+
+      {/* Step Diagram */}
+      <div>
+        <div className="text-xs font-semibold text-[#0F1B2D] mb-3">
+          End-to-end processing pipeline
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+          {steps.map((st, i) => {
+            const Icon = st.icon
+            return (
+              <div
+                key={st.step}
+                className="bg-[#F9FAFB] border border-[#E3E6EB] rounded-lg p-3 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between text-[11px] font-bold text-[#1F4E9C] mb-1">
+                    <span>{st.step}</span>
+                    <Icon className="w-3.5 h-3.5 text-[#5B6676]" />
+                  </div>
+                  <div className="font-semibold text-[#0F1B2D] mb-1 text-xs">{st.title}</div>
+                  <p className="text-[11px] text-[#5B6676] leading-relaxed">{st.desc}</p>
+                </div>
+                {i < steps.length - 1 && (
+                  <div className="hidden md:flex justify-end mt-2 text-[#8A94A6]">
+                    <ArrowRight className="w-3 h-3" />
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Multi-Factor Confidence Formula */}
+      <div className="border border-[#E3E6EB] rounded-lg p-4 space-y-3">
+        <h3 className="font-semibold text-xs text-[#0F1B2D]">
+          Multi-factor confidence scoring formula
+        </h3>
+        <p className="text-[#5B6676] leading-relaxed">
+          Wholesale balance sheets cannot afford automated hedge triggers based on speculative rumors or uncorroborated social chatter. The platform computes an objective confidence index:
+        </p>
+
+        <div className="bg-[#F2F4F7] p-3 rounded border border-[#EAECF0] font-mono-id text-xs text-[#0F1B2D] overflow-x-auto leading-relaxed">
+          Confidence = 0.30 &times; SourceReliability + 0.25 &times; Corroboration + 0.20 &times; FinBERT_Agreement + 0.15 &times; SelfConsistency + 0.10 &times; ClaimCertainty &minus; HypePenalty
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] text-[#5B6676]">
+          <div>
+            &bull; <strong>Source Reliability (30%):</strong> Credibility weights (Reuters/Bloomberg 85%, Financial Times 85%, NewsAPI 80%, GDELT 65%, Social/X 35%).
+          </div>
+          <div>
+            &bull; <strong>Corroboration (25%):</strong> Cross-feed corroboration matching the same counterparty within a 24-hour window.
+          </div>
+          <div>
+            &bull; <strong>FinBERT Agreement (20%):</strong> Sentiment direction consensus between the LLM and the local FinBERT domain model.
+          </div>
+          <div>
+            &bull; <strong>Self-Consistency (15%):</strong> Categorical extraction agreement across multi-prompt evaluations.
+          </div>
+          <div>
+            &bull; <strong>Claim Certainty (10%):</strong> Syntactic penalization for hedging language (&ldquo;rumors&rdquo;, &ldquo;unconfirmed&rdquo;).
+          </div>
+          <div>
+            &bull; <strong>Hype Penalty:</strong> Uncorroborated social engagement spikes penalized up to 25% to prevent retail manipulation.
+          </div>
+        </div>
+      </div>
+
+      {/* Measured vs Assumed Rule Source Legend */}
+      <div className="border border-[#E3E6EB] rounded-lg p-4 space-y-3">
+        <h3 className="font-semibold text-xs text-[#0F1B2D]">
+          Transmission Rule Provenance: Measured vs. Assumed
+        </h3>
+        <p className="text-[#5B6676] leading-relaxed">
+          Every line item in the Shock Table and position stress breakdown discloses its calibration provenance:
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div className="p-3 rounded bg-[#EDFDF5] border border-[#A6F4C5] space-y-1">
+            <div className="font-semibold text-[#067647] flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              <span>Measured provenance</span>
+            </div>
+            <p className="text-[#5B6676] text-[11px] leading-relaxed">
+              Derived directly from empirical event-study abnormal return distributions across 24 historical market shocks (e.g., historical shipping sector moves during Red Sea missile attacks, bank stock drops during credit downgrades).
+            </p>
+          </div>
+
+          <div className="p-3 rounded bg-[#F9FAFB] border border-[#E3E6EB] space-y-1">
+            <div className="font-semibold text-[#475467] flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>Assumed provenance</span>
+            </div>
+            <p className="text-[#5B6676] text-[11px] leading-relaxed">
+              Structural risk desk heuristics applied where liquid historical event data is scarce (e.g., trade finance loan probability-of-default multipliers, collateral haircuts, and OTC derivative delta sensitivities).
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Synthetic Portfolio Disclosure */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-700">
-        <h3 className="font-semibold text-slate-100 font-mono text-sm uppercase tracking-wide flex items-center gap-2 mb-1.5">
-          <ShieldAlert className="w-4 h-4 text-cyan-400" />
-          <span>Synthetic Wholesale Banking Portfolio Disclosure</span>
-        </h3>
-        <p className="text-slate-300 text-xs">
-          The reference portfolio consists of 50 synthetic wholesale banking positions (~USD 1.32B notional) spanning corporate loans (revolvers, term loans, trade finance), investment-grade and high-yield corporate bonds, interest-rate and commodity derivatives, and strategic equities. Counterparty entities correspond to major systemic institutions purely to anchor realistic sector and country risk transmissions. <strong>No proprietary or actual bank client exposure data is used.</strong>
+      <div className="p-3.5 rounded bg-[#F9FAFB] border border-[#E3E6EB] space-y-1 text-xs">
+        <h4 className="font-semibold text-[#0F1B2D]">
+          Synthetic Portfolio Disclosure &amp; Scope
+        </h4>
+        <p className="text-[#5B6676] leading-relaxed">
+          The reference portfolio is composed of 50 synthetic wholesale banking positions ($1.32B total market value) designed to benchmark realistic wholesale counterparty concentrations across loans, bonds, equities, and derivatives. <strong>No real client or proprietary bank data is contained in this demonstration.</strong>
         </p>
-      </div>
-
-      {/* Multi-Factor Confidence Scoring */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
-        <h3 className="font-semibold text-slate-100 font-mono text-sm uppercase tracking-wide flex items-center gap-2">
-          <Cpu className="w-4 h-4 text-emerald-400" />
-          <span>Multi-Factor Confidence Scoring Formula</span>
-        </h3>
-        <p className="text-slate-300">
-          Risk managers cannot afford to trigger false-positive balance sheet hedges on speculative rumors. The platform computes a compound confidence score $C \in [0.0, 1.0]$:
-        </p>
-        <div className="bg-slate-950 p-3 rounded-lg font-mono text-[11px] text-cyan-300 border border-slate-800">
-          Confidence = 0.30 &times; SourceReliability + 0.25 &times; Corroboration + 0.20 &times; FinBERT_Agreement + 0.15 &times; SelfConsistency + 0.10 &times; ClaimCertainty &minus; HypePenalty
-        </div>
-        <ul className="space-y-1.5 text-slate-400 list-disc list-inside">
-          <li><strong>Source Reliability (30%):</strong> Prior table (Reuters/Bloomberg 85%, WSJ/FT 85%, NewsAPI 80%, GDELT 65%, Social/X 35%).</li>
-          <li><strong>Corroboration (25%):</strong> Cross-source verification clustering items reporting the same entity and event class within 24h.</li>
-          <li><strong>Sentiment Agreement (20%):</strong> Polarity consensus between generative LLM perspective and local FinBERT transformer.</li>
-          <li><strong>Self-Consistency (15%):</strong> Pass 1 (greedy) vs Pass 2 (sampled temperature 0.3) categorical stability.</li>
-          <li><strong>Claim Certainty (10%):</strong> Verified facts vs speculative rumor phrasing extracted from syntax.</li>
-          <li><strong>Social Hype Penalty:</strong> Uncorroborated social spikes exceeding engagement medians are penalized up to 25%.</li>
-        </ul>
-      </div>
-
-      {/* Transmission Mechanics & Shock Table */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
-        <h3 className="font-semibold text-slate-100 font-mono text-sm uppercase tracking-wide flex items-center gap-2">
-          <GitBranch className="w-4 h-4 text-rose-400" />
-          <span>Asset-Type Shock Transmission Mechanics</span>
-        </h3>
-        <p className="text-slate-300">
-          Signals with impact &gt; 7.0 and confidence &ge; 60% trigger automated transmission across the exposure matrix:
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          <div className="p-2.5 rounded bg-slate-950 border border-slate-800">
-            <span className="font-mono font-bold text-slate-200 block mb-1">1. Strategic Equities</span>
-            <p className="text-slate-400 text-[11px]">
-              Direct percentage price shock based on measured event-study abnormal moves or assumed equity elasticity.
-            </p>
-          </div>
-          <div className="p-2.5 rounded bg-slate-950 border border-slate-800">
-            <span className="font-mono font-bold text-slate-200 block mb-1">2. Corporate Bonds</span>
-            <p className="text-slate-400 text-[11px]">
-              Credit spread widening ($\Delta s$ bps) &times; modified duration ($D$) &times; market value repricing.
-            </p>
-          </div>
-          <div className="p-2.5 rounded bg-slate-950 border border-slate-800">
-            <span className="font-mono font-bold text-slate-200 block mb-1">3. Corporate Loans &amp; Trade Finance</span>
-            <p className="text-slate-400 text-[11px]">
-              Expected Loss uplift: $\Delta PD \times LGD (45\%) \times (1 - Collateral\%) \times Notional$.
-            </p>
-          </div>
-          <div className="p-2.5 rounded bg-slate-950 border border-slate-800">
-            <span className="font-mono font-bold text-slate-200 block mb-1">4. Derivatives &amp; Hedges</span>
-            <p className="text-slate-400 text-[11px]">
-              MTM swing based on Bank Delta &times; Underlying Move %, plus counterparty credit valuation adjustment (CVA).
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Measured vs Assumed Legend */}
-      <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
-        <h3 className="font-semibold text-slate-100 font-mono text-sm uppercase tracking-wide flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-cyan-400" />
-          <span>Rule Origin: Measured vs Assumed Legend</span>
-        </h3>
-        <p className="text-slate-300 text-xs">
-          Every cell in the shock table and position explanation carries an origin tag:
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 pt-1">
-          <div className="p-2.5 rounded bg-emerald-950/30 border border-emerald-800/40 text-emerald-300 flex-1">
-            <strong className="block font-mono text-xs uppercase mb-1">MEASURED Origin</strong>
-            Equity percentage moves derived directly from empirical CAPM cumulative abnormal return (CAR) medians from our 24-event benchmark where at least 2 historical occurrences match the theme and sector.
-          </div>
-          <div className="p-2.5 rounded bg-amber-950/30 border border-amber-800/40 text-amber-300 flex-1">
-            <strong className="block font-mono text-xs uppercase mb-1">ASSUMED Origin</strong>
-            Institutional banking heuristic estimates with documented rationale for transmission parameters lacking sufficient historical empirical observations ($n &lt; 2$).
-          </div>
-        </div>
       </div>
     </div>
   )

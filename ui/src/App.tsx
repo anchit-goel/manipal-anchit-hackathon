@@ -8,6 +8,8 @@ import type {
   HealthInfo,
 } from './types'
 import { TopBar } from './components/TopBar'
+import { KpiStrip } from './components/KpiStrip'
+import { ReplayToolbar } from './components/ReplayToolbar'
 import { SignalCard } from './components/SignalCard'
 import { StressPanel } from './components/StressPanel'
 import { ExposureHeatmap } from './components/ExposureHeatmap'
@@ -15,7 +17,7 @@ import { WhatIfTab } from './components/WhatIfTab'
 import { AnalyzeTab } from './components/AnalyzeTab'
 import { CalibrationTab } from './components/CalibrationTab'
 import { MethodologyTab } from './components/MethodologyTab'
-import { ShieldAlert, Radio } from 'lucide-react'
+import { Filter } from 'lucide-react'
 
 export const App: React.FC = () => {
   // Navigation
@@ -29,6 +31,9 @@ export const App: React.FC = () => {
   const [calibrationData, setCalibrationData] = useState<CalibrationData | null>(null)
   const [presets, setPresets] = useState<Preset[]>([])
   const [health, setHealth] = useState<HealthInfo | null>(null)
+
+  // Feed Filter ('all' | 'triggered' | 'suppressed')
+  const [feedFilter, setFeedFilter] = useState<'all' | 'triggered' | 'suppressed'>('all')
 
   // Replay Streaming State
   const [isPlaying, setIsPlaying] = useState<boolean>(true)
@@ -83,21 +88,21 @@ export const App: React.FC = () => {
     es.onmessage = (event) => {
       try {
         const payload = JSON.parse(event.data)
-        if (!payload || !payload.type) return
+        if (payload.index !== undefined) {
+          setLastIndex(payload.index + 1)
+        }
 
         if (payload.type === 'signal') {
-          const sig: Signal = payload.signal
-          setLastIndex(payload.index + 1)
           setSignals((prev) => {
-            if (prev.some((s) => s.signal_id === sig.signal_id)) return prev
-            return [sig, ...prev]
+            const exists = prev.some((s) => s.signal_id === payload.signal.signal_id)
+            if (exists) return prev
+            return [payload.signal, ...prev]
           })
         } else if (payload.type === 'stress_result') {
-          const res: StressResult = payload.result
-          setStressResult(res)
+          setStressResult(payload.result)
           setSignals((prev) =>
             prev.map((s) =>
-              s.signal_id === res.lead_signal_id
+              s.signal_id === payload.result.lead_signal_id
                 ? { ...s, outcome_type: 'stress_result' }
                 : s
             )
@@ -110,7 +115,6 @@ export const App: React.FC = () => {
                     ...s,
                     outcome_type: 'suppressed',
                     suppression_reason: payload.reason,
-                    trigger_eligible: false,
                   }
                 : s
             )
@@ -197,7 +201,6 @@ export const App: React.FC = () => {
     }
     const data = await res.json()
     setStressResult(data)
-    setActiveTab('stress')
     return data
   }
 
@@ -229,130 +232,199 @@ export const App: React.FC = () => {
     }
     const data = await res.json()
     setStressResult(data)
-    setActiveTab('stress')
     return data
   }
 
+  // Filtered signals for the feed column
+  const filteredSignals = signals.filter((s) => {
+    if (feedFilter === 'triggered') {
+      return s.trigger_eligible && s.outcome_type !== 'suppressed' && s.outcome_type !== 'merged'
+    }
+    if (feedFilter === 'suppressed') {
+      return s.outcome_type === 'suppressed' || (!s.trigger_eligible && !!s.suppression_reason)
+    }
+    return true
+  })
+
+  const totalMarketValue = portfolio?.total_market_value ?? 1320368000
+  const totalReplayCount = health?.signal_count ?? 14
+
   return (
-    <div className="min-h-screen bg-[#070a12] text-slate-100 flex flex-col font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
-      {/* Top Bar Navigation & Controls */}
+    <div className="min-h-screen bg-[#F5F6F8] text-[#0F1B2D] flex flex-col font-sans selection:bg-[#B2CCF2] selection:text-[#0F1B2D]">
+      {/* Slim Institutional Header */}
       <TopBar
-        totalMarketValue={portfolio?.total_market_value || 1.32e9}
+        totalMarketValue={totalMarketValue}
         health={health}
-        isPlaying={isPlaying}
-        onTogglePlay={handleTogglePlay}
-        onRestart={handleRestart}
-        speed={speed}
-        onChangeSpeed={handleChangeSpeed}
         activeTab={activeTab}
         onSelectTab={setActiveTab}
         connectionState={connectionState}
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 p-3 md:p-4 max-w-[1920px] w-full mx-auto overflow-hidden">
+      <main className="flex-1 p-4 max-w-[1520px] w-full mx-auto space-y-4">
         {activeTab === 'stress' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-[calc(100vh-105px)]">
-            {/* LEFT: Live Signal Feed (Col 1-4) */}
-            <section
-              aria-label="Live Signal Feed"
-              className="lg:col-span-4 glass-panel rounded-2xl p-4 flex flex-col h-full overflow-hidden"
-            >
-              <div className="flex justify-between items-center pb-2.5 mb-3 border-b border-slate-800">
-                <div className="flex items-center gap-2">
-                  <Radio className="w-4 h-4 text-cyan-400" />
-                  <h2 className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-200">
-                    Live Narrative Signal Feed
-                  </h2>
-                </div>
-                <span className="text-[11px] font-mono text-slate-400 px-2 py-0.5 rounded bg-slate-900 border border-slate-800">
-                  {signals.length} Signals
-                </span>
-              </div>
-
-              {/* Scrollable feed items */}
-              <div className="flex-1 overflow-y-auto space-y-3 pr-1">
-                {signals.length === 0 ? (
-                  <div className="h-48 flex flex-col items-center justify-center text-center text-slate-500 font-mono text-xs">
-                    <p>Replay stream initialized...</p>
-                    <span className="text-[10px] text-slate-600 mt-1">Press Play to stream market events</span>
-                  </div>
-                ) : (
-                  signals.map((sig) => (
-                    <SignalCard
-                      key={sig.signal_id}
-                      signal={sig}
-                      isSelected={selectedSignal?.signal_id === sig.signal_id}
-                      onSelect={handleSelectSignal}
-                    />
-                  ))
-                )}
-              </div>
-            </section>
-
-            {/* CENTRE: Hero Stress Testing Panel (Col 5-9) */}
-            <section
-              aria-label="Stress Panel"
-              className="lg:col-span-5 h-full overflow-hidden"
-            >
-              <StressPanel
-                result={stressResult}
-                headline={selectedSignal?.headline || signals.find((s) => s.signal_id === stressResult?.lead_signal_id)?.headline}
-              />
-            </section>
-
-            {/* RIGHT: Exposure Heatmap & Top Movers (Col 10-12) */}
-            <section
-              aria-label="Exposure Heatmap"
-              className="lg:col-span-3 h-full overflow-hidden"
-            >
-              <ExposureHeatmap portfolio={portfolio} result={stressResult} />
-            </section>
-          </div>
-        )}
-
-        {activeTab === 'whatif' && (
-          <div className="h-[calc(100vh-105px)]">
-            <WhatIfTab onRunCustom={handleRunCustom} />
-          </div>
-        )}
-
-        {activeTab === 'analyze' && (
-          <div className="h-[calc(100vh-105px)]">
-            <AnalyzeTab
-              presets={presets}
-              onAnalyze={handleAnalyze}
-              onRunStressForSignal={handleRunStressForSignal}
+          <div className="space-y-4">
+            {/* KPI Strip */}
+            <KpiStrip
+              totalMarketValue={totalMarketValue}
+              activeResult={stressResult}
+              signals={signals}
+              totalSignalsCount={totalReplayCount}
             />
+
+            {/* Replay Toolbar */}
+            <ReplayToolbar
+              isPlaying={isPlaying}
+              onTogglePlay={handleTogglePlay}
+              onRestart={handleRestart}
+              speed={speed}
+              onChangeSpeed={handleChangeSpeed}
+              currentIndex={lastIndex}
+              totalCount={totalReplayCount}
+              connectionState={connectionState}
+            />
+
+            {/* Three Column Monitor View */}
+            <div className="flex flex-col lg:flex-row gap-4 items-start">
+              {/* Left Column: Compact Signal Feed (340px) */}
+              <section
+                aria-label="Signal Feed"
+                className="w-full lg:w-[340px] shrink-0 bg-white border border-[#E3E6EB] rounded-lg p-3.5 flex flex-col space-y-3"
+              >
+                {/* Header & Filter Toggle */}
+                <div className="flex items-center justify-between pb-2 border-b border-[#E3E6EB]">
+                  <div className="flex items-center gap-1.5">
+                    <Filter className="w-3.5 h-3.5 text-[#5B6676]" />
+                    <span className="text-xs font-bold text-[#0F1B2D]">Narrative signals</span>
+                  </div>
+
+                  {/* Filter Pills */}
+                  <div className="flex items-center gap-1 text-[11px]">
+                    <button
+                      type="button"
+                      onClick={() => setFeedFilter('all')}
+                      className={`px-1.5 py-0.5 rounded transition-colors ${
+                        feedFilter === 'all'
+                          ? 'bg-[#1F4E9C] text-white font-medium'
+                          : 'text-[#5B6676] hover:text-[#0F1B2D]'
+                      }`}
+                    >
+                      All ({signals.length})
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setFeedFilter('triggered')}
+                      className={`px-1.5 py-0.5 rounded transition-colors ${
+                        feedFilter === 'triggered'
+                          ? 'bg-[#1F4E9C] text-white font-medium'
+                          : 'text-[#5B6676] hover:text-[#0F1B2D]'
+                      }`}
+                    >
+                      Trig
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setFeedFilter('suppressed')}
+                      className={`px-1.5 py-0.5 rounded transition-colors ${
+                        feedFilter === 'suppressed'
+                          ? 'bg-[#1F4E9C] text-white font-medium'
+                          : 'text-[#5B6676] hover:text-[#0F1B2D]'
+                      }`}
+                    >
+                      Supp
+                    </button>
+                  </div>
+                </div>
+
+                {/* Scrollable feed list */}
+                <div className="max-h-[720px] overflow-y-auto space-y-2 pr-1">
+                  {filteredSignals.length === 0 ? (
+                    <div className="py-12 text-center text-[#8A94A6] text-xs">
+                      {signals.length === 0 ? (
+                        <>
+                          <div>Waiting for incoming events...</div>
+                          <div className="text-[11px] text-[#5B6676] mt-1">Press Play to stream replay</div>
+                        </>
+                      ) : (
+                        <div>No signals match this filter.</div>
+                      )}
+                    </div>
+                  ) : (
+                    filteredSignals.map((sig) => (
+                      <SignalCard
+                        key={sig.signal_id}
+                        signal={sig}
+                        isSelected={selectedSignal?.signal_id === sig.signal_id}
+                        onSelect={handleSelectSignal}
+                      />
+                    ))
+                  )}
+                </div>
+              </section>
+
+              {/* Middle Column: Hero Stress Panel (Flexible) */}
+              <section
+                aria-label="Scenario Result"
+                className="flex-1 min-w-0"
+              >
+                <StressPanel
+                  result={stressResult}
+                  portfolio={portfolio}
+                  leadSignal={selectedSignal}
+                  headline={
+                    selectedSignal?.headline ||
+                    signals.find((s) => s.signal_id === stressResult?.lead_signal_id)?.headline
+                  }
+                />
+              </section>
+
+              {/* Right Column: Exposure Panel & Treemap (380px) */}
+              <section
+                aria-label="Exposure Treemap"
+                className="w-full lg:w-[380px] shrink-0"
+              >
+                <ExposureHeatmap portfolio={portfolio} result={stressResult} />
+              </section>
+            </div>
           </div>
         )}
 
+        {/* Tab 2: Scenario Lab */}
+        {activeTab === 'whatif' && (
+          <WhatIfTab
+            onRunCustom={handleRunCustom}
+            portfolio={portfolio}
+          />
+        )}
+
+        {/* Tab 3: Analyze Text */}
+        {activeTab === 'analyze' && (
+          <AnalyzeTab
+            presets={presets}
+            onAnalyze={handleAnalyze}
+            onRunStressForSignal={handleRunStressForSignal}
+          />
+        )}
+
+        {/* Tab 4: Calibration */}
         {activeTab === 'calibration' && (
-          <div className="h-[calc(100vh-105px)]">
-            <CalibrationTab data={calibrationData} />
-          </div>
+          <CalibrationTab data={calibrationData} />
         )}
 
+        {/* Tab 5: Methodology */}
         {activeTab === 'methodology' && (
-          <div className="h-[calc(100vh-105px)]">
-            <MethodologyTab />
-          </div>
+          <MethodologyTab />
         )}
       </main>
 
-      {/* Institutional Footer & Disclaimers */}
-      <footer className="glass-panel border-t border-slate-800/80 px-4 py-2 text-[11px] font-mono text-slate-500 flex flex-wrap justify-between items-center gap-2">
-        <div className="flex items-center gap-3">
-          <span className="text-amber-400/90 font-medium flex items-center gap-1">
-            <ShieldAlert className="w-3.5 h-3.5" />
-            SYNTHETIC PORTFOLIO DISCLAIMER:
-          </span>
-          <span>50 notional wholesale banking exposures (~$1.32B) modeled for academic demonstration.</span>
+      {/* Institutional Footer */}
+      <footer className="bg-white border-t border-[#E3E6EB] px-6 py-2.5 text-[11px] text-[#5B6676] flex flex-wrap justify-between items-center gap-2 mt-auto">
+        <div className="flex items-center gap-2">
+          <span>Data sources: GDELT v2 &middot; NewsAPI Financials &middot; Social chatter &middot; CAPM Event Studies</span>
         </div>
-
         <div className="flex items-center gap-4">
-          <span>Sources: GDELT · NewsAPI · yfinance Event Studies · Local FinBERT</span>
-          <span className="text-slate-400">S&amp;P Global &amp; CRISIL Hackathon 2026</span>
+          <span className="font-medium text-[#0F1B2D]">Synthetic wholesale portfolio, illustrative</span>
+          <span>S&amp;P Global &amp; CRISIL Hackathon 2026</span>
         </div>
       </footer>
     </div>

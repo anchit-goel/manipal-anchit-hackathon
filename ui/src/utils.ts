@@ -1,22 +1,118 @@
-export function formatCurrency(value: number, decimals: number = 2): string {
-  if (value === undefined || value === null || isNaN(value)) return '$0.00'
+/**
+ * Institutional formatting helpers and label humanisation.
+ * Respects true minus sign (−), single-decimal percentages,
+ * integer confidence strings, and human-readable domain text.
+ */
+
+export function formatCurrency(
+  value: number,
+  decimals: number = 1,
+  useUnicodeMinus: boolean = true
+): string {
+  if (value === undefined || value === null || isNaN(value)) return '$0.0M'
   const abs = Math.abs(value)
+  const minus = useUnicodeMinus ? '−' : '-'
+  const prefix = value < 0 ? minus : ''
+
   if (abs >= 1e9) {
-    return `${value < 0 ? '-' : ''}$${(abs / 1e9).toFixed(decimals)}B`
+    return `${prefix}$${(abs / 1e9).toFixed(decimals >= 2 ? decimals : 2)}B`
   }
   if (abs >= 1e6) {
-    return `${value < 0 ? '-' : ''}$${(abs / 1e6).toFixed(decimals)}M`
+    return `${prefix}$${(abs / 1e6).toFixed(decimals)}M`
   }
   if (abs >= 1e3) {
-    return `${value < 0 ? '-' : ''}$${(abs / 1e3).toFixed(decimals)}K`
+    return `${prefix}$${(abs / 1e3).toFixed(decimals)}K`
   }
-  return `${value < 0 ? '-' : ''}$${abs.toFixed(decimals)}`
+  return `${prefix}$${abs.toFixed(decimals)}`
 }
 
-export function formatPct(value: number, decimals: number = 2): string {
-  if (value === undefined || value === null || isNaN(value)) return '0.00%'
-  const sign = value > 0 ? '+' : ''
-  return `${sign}${value.toFixed(decimals)}%`
+export function formatPct(
+  value: number,
+  decimals: number = 1,
+  showSign: boolean = true,
+  useUnicodeMinus: boolean = true
+): string {
+  if (value === undefined || value === null || isNaN(value)) return '0.0%'
+  const minus = useUnicodeMinus ? '−' : '-'
+  if (value < 0) {
+    return `${minus}${Math.abs(value).toFixed(decimals)}%`
+  }
+  if (value > 0) {
+    return `${showSign ? '+' : ''}${value.toFixed(decimals)}%`
+  }
+  return `0.0%`
+}
+
+export function formatConfidence(value: number): string {
+  if (value === undefined || value === null || isNaN(value)) return '0%'
+  // If between 0 and 1, multiply by 100
+  const pct = value <= 1.0 ? Math.round(value * 100) : Math.round(value)
+  return `${pct}%`
+}
+
+export function formatShortDate(isoString: string): string {
+  if (!isoString) return ''
+  try {
+    const d = new Date(isoString)
+    if (isNaN(d.getTime())) return isoString
+    return d.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZone: 'UTC',
+    }) + ' UTC'
+  } catch {
+    return isoString
+  }
+}
+
+const THEME_LABELS: Record<string, string> = {
+  shipping_disruption: 'Shipping disruption',
+  oil_price_up: 'Oil price increase',
+  oil_price_down: 'Oil price decrease',
+  credit_downgrade: 'Credit downgrade',
+  credit_default: 'Credit default',
+  banking_stress: 'Banking sector stress',
+  rate_hike: 'Interest rate hike',
+  rate_cut: 'Interest rate cut',
+  sovereign_risk: 'Sovereign risk',
+  semiconductor_shortage: 'Semiconductor shortage',
+  none: 'None',
+}
+
+export function humanizeTheme(theme: string = ''): string {
+  if (!theme) return 'General'
+  const clean = theme.toLowerCase().trim()
+  if (THEME_LABELS[clean]) return THEME_LABELS[clean]
+  return clean
+    .split('_')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ')
+}
+
+const EVENT_CLASS_LABELS: Record<string, string> = {
+  Geopolitical: 'Geopolitical event',
+  'Credit Event': 'Credit event',
+  Macroeconomic: 'Macroeconomic shock',
+  'Product Launch': 'Product announcement',
+  'Merger/Acquisition': 'Merger & acquisition',
+  Regulatory: 'Regulatory action',
+  Other: 'General corporate',
+}
+
+export function humanizeEventClass(eventClass: string = ''): string {
+  if (!eventClass) return 'General corporate'
+  return EVENT_CLASS_LABELS[eventClass] || eventClass
+}
+
+export function humanizeAssetType(assetType: string = ''): string {
+  const map: Record<string, string> = {
+    loan: 'Corporate loan',
+    bond: 'Institutional bond',
+    equity: 'Public equity',
+    derivative: 'Derivative contract',
+  }
+  return map[assetType.toLowerCase()] || assetType
 }
 
 export function cleanModelName(model: string = ''): string {
@@ -27,40 +123,40 @@ export function cleanModelName(model: string = ''): string {
   return cleaned || 'rules-fallback'
 }
 
-export function getSeverityColor(impact: number): {
+export function getSeverityStyle(impact: number): {
+  label: string
   bg: string
   border: string
   text: string
-  badge: string
 } {
   if (impact >= 8.5) {
     return {
-      bg: 'bg-rose-950/40',
-      border: 'border-rose-500/50',
-      text: 'text-rose-400',
-      badge: 'bg-rose-500/20 text-rose-300 border-rose-500/40',
+      label: 'Critical',
+      bg: 'bg-[#FEF3F2]',
+      border: 'border-[#FECDCA]',
+      text: 'text-[#B42318]',
     }
   }
   if (impact >= 7.0) {
     return {
-      bg: 'bg-amber-950/40',
-      border: 'border-amber-500/50',
-      text: 'text-amber-400',
-      badge: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+      label: 'Major',
+      bg: 'bg-[#FFFAEB]',
+      border: 'border-[#FEDF89]',
+      text: 'text-[#B54708]',
     }
   }
   if (impact >= 4.0) {
     return {
-      bg: 'bg-blue-950/40',
-      border: 'border-blue-500/50',
-      text: 'text-blue-400',
-      badge: 'bg-blue-500/20 text-blue-300 border-blue-500/40',
+      label: 'Moderate',
+      bg: 'bg-[#F2F4F7]',
+      border: 'border-[#EAECF0]',
+      text: 'text-[#475467]',
     }
   }
   return {
-    bg: 'bg-slate-900/40',
-    border: 'border-slate-700/50',
-    text: 'text-slate-400',
-    badge: 'bg-slate-800 text-slate-300 border-slate-700',
+    label: 'Low',
+    bg: 'bg-[#F9FAFB]',
+    border: 'border-[#E3E6EB]',
+    text: 'text-[#5B6676]',
   }
 }

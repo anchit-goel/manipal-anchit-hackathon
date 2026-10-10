@@ -1,9 +1,23 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { Newspaper, MessageSquare, AlertTriangle, ShieldCheck, Flame } from 'lucide-react'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  Newspaper,
+  MessageSquare,
+  ChevronDown,
+  ChevronUp,
+  ArrowDown,
+  ArrowUp,
+  Minus,
+} from 'lucide-react'
 import type { Signal } from '../types'
-import { ConfidenceRing } from './ConfidenceRing'
-import { cleanModelName, getSeverityColor } from '../utils'
+import {
+  cleanModelName,
+  formatPct,
+  formatConfidence,
+  formatShortDate,
+  humanizeTheme,
+  humanizeEventClass,
+} from '../utils'
 
 interface SignalCardProps {
   signal: Signal
@@ -12,184 +26,233 @@ interface SignalCardProps {
 }
 
 export const SignalCard: React.FC<SignalCardProps> = ({ signal, isSelected, onSelect }) => {
-  const isSuppressed = signal.outcome_type === 'suppressed' || (!signal.trigger_eligible && !!signal.suppression_reason)
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  const isSuppressed =
+    signal.outcome_type === 'suppressed' ||
+    (!signal.trigger_eligible && !!signal.suppression_reason)
   const isMerged = signal.outcome_type === 'merged'
   const isTriggered = signal.trigger_eligible && !isSuppressed && !isMerged
-  const sev = getSeverityColor(signal.impact_score)
 
   const isSocial = signal.source_type === 'social'
   const modelClean = cleanModelName(signal.model_versions?.extractor)
-  const isLlm = !modelClean.includes('fallback')
+  const isFallback = modelClean.includes('fallback')
+
+  const sentiment = signal.sentiment_score ?? 0
+  const isNegative = sentiment < -0.1
+  const isPositive = sentiment > 0.1
+
+  const handleCardClick = () => {
+    onSelect?.(signal)
+  }
+
+  const handleToggleExpand = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setIsExpanded((prev) => !prev)
+  }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: isSuppressed ? 0.6 : 1, x: 0 }}
-      transition={{ duration: 0.3 }}
-      onClick={() => onSelect?.(signal)}
-      className={`relative p-3.5 rounded-xl border transition-all duration-200 cursor-pointer text-left ${
+    <div
+      onClick={handleCardClick}
+      className={`border rounded-lg transition-colors cursor-pointer text-left overflow-hidden ${
         isSelected
-          ? 'border-cyan-400/80 bg-slate-900/95 shadow-lg shadow-cyan-950/40 ring-1 ring-cyan-400/30'
+          ? 'bg-[#F0F5FD] border-[#1F4E9C] border-l-4 border-l-[#1F4E9C]'
           : isTriggered
-          ? 'border-rose-500/50 bg-slate-900/80 hover:border-rose-400/80 hover:bg-slate-900 shadow-md shadow-rose-950/30 animate-pulse-subtle'
+          ? 'bg-white border-[#E3E6EB] hover:bg-[#F9FAFB] border-l-4 border-l-[#B42318]'
           : isSuppressed
-          ? 'border-slate-800/60 bg-slate-950/40 opacity-60 hover:opacity-90'
-          : 'border-slate-800/80 bg-slate-900/60 hover:border-slate-700 hover:bg-slate-900/80'
+          ? 'bg-[#FAFAFA] border-[#E3E6EB] opacity-75 hover:opacity-100'
+          : 'bg-white border-[#E3E6EB] hover:bg-[#F9FAFB]'
       }`}
     >
-      {/* Top row: Sources, Badges, Model */}
-      <div className="flex items-center justify-between gap-2 mb-2 text-xs">
-        <div className="flex items-center gap-1.5 flex-wrap">
-          <span
-            className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-medium ${
-              isSocial
-                ? 'bg-purple-950/60 text-purple-300 border border-purple-800/40'
-                : 'bg-blue-950/60 text-blue-300 border border-blue-800/40'
-            }`}
-          >
-            {isSocial ? <MessageSquare className="w-3 h-3" /> : <Newspaper className="w-3 h-3" />}
-            {signal.source}
-          </span>
-
-          <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-800 text-slate-300 border border-slate-700">
-            {signal.event_class}
-          </span>
-
-          <span
-            className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
-              isLlm
-                ? 'bg-cyan-950/40 text-cyan-300 border border-cyan-800/40'
-                : 'bg-amber-950/40 text-amber-300 border border-amber-800/40'
-            }`}
-          >
-            {modelClean}
-          </span>
-        </div>
-
-        {/* Trigger status chip */}
-        <div>
-          {isTriggered && (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide uppercase bg-rose-500/20 text-rose-300 border border-rose-500/40 shadow-sm shadow-rose-500/20">
-              <Flame className="w-3 h-3 text-rose-400 fill-rose-400" />
-              TRIGGER
-            </span>
-          )}
-          {isMerged && (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-indigo-950 text-indigo-300 border border-indigo-800">
-              merged into {signal.merged_into || 'scenario'}
-            </span>
-          )}
-          {isSuppressed && (
-            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono text-slate-400 bg-slate-900 border border-slate-800">
-              <ShieldCheck className="w-3 h-3 text-slate-400" />
-              SUPPRESSED
-            </span>
-          )}
-        </div>
-      </div>
-
-      {/* Entity & Ticker Header */}
-      <div className="flex items-baseline justify-between mb-1.5">
-        <h4 className="font-semibold text-sm text-slate-100 truncate flex items-center gap-1.5">
-          {signal.entity}
-          {signal.ticker && (
-            <span className="text-xs font-mono font-medium px-1.5 py-0.2 rounded bg-slate-800/90 text-cyan-300 border border-slate-700">
-              ${signal.ticker}
-            </span>
-          )}
-        </h4>
-        <span className="text-[10px] font-mono text-slate-400">
-          {new Date(signal.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-        </span>
-      </div>
-
-      {/* Headline Snippet */}
-      <p className="text-xs text-slate-300 line-clamp-2 mb-2.5 font-normal leading-relaxed">
-        {signal.headline}
-      </p>
-
-      {/* Metrics Row: Sentiment Bar, Impact Gauge, Confidence Ring */}
-      <div className="grid grid-cols-[1fr_auto_auto] items-center gap-3 pt-2 border-t border-slate-800/80 mb-2">
-        {/* Sentiment Bar */}
-        <div className="flex flex-col gap-1">
-          <div className="flex justify-between text-[10px] font-mono text-slate-400">
-            <span>Sentiment</span>
-            <span
-              className={
-                signal.sentiment_score > 0.05
-                  ? 'text-emerald-400 font-semibold'
-                  : signal.sentiment_score < -0.05
-                  ? 'text-rose-400 font-semibold'
-                  : 'text-slate-400'
-              }
-            >
-              {signal.sentiment_score > 0 ? `+${signal.sentiment_score.toFixed(2)}` : signal.sentiment_score.toFixed(2)}
-            </span>
-          </div>
-          <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden flex">
-            {signal.sentiment_score < 0 ? (
-              <>
-                <div
-                  className="bg-rose-500 h-full ml-auto"
-                  style={{ width: `${Math.min(100, Math.abs(signal.sentiment_score) * 100)}%` }}
-                />
-                <div className="w-1/2 h-full bg-transparent" />
-              </>
+      {/* Compact Row Content */}
+      <div className="p-3">
+        {/* Line 1: Entity + Ticker + Time + Status Tag */}
+        <div className="flex items-center justify-between gap-1.5 text-xs mb-1">
+          <div className="flex items-center gap-1.5 min-w-0">
+            {isSocial ? (
+              <MessageSquare className="w-3.5 h-3.5 text-[#5B6676] shrink-0" aria-label="Social source" />
             ) : (
-              <>
-                <div className="w-1/2 h-full bg-transparent" />
-                <div
-                  className="bg-emerald-500 h-full"
-                  style={{ width: `${Math.min(100, signal.sentiment_score * 100)}%` }}
-                />
-              </>
+              <Newspaper className="w-3.5 h-3.5 text-[#5B6676] shrink-0" aria-label="News source" />
             )}
+            <span className="font-semibold text-[#0F1B2D] truncate">{signal.entity}</span>
+            {signal.ticker && (
+              <span className="font-mono-id text-[11px] text-[#5B6676] px-1 py-0.2 bg-[#F2F4F7] rounded">
+                {signal.ticker}
+              </span>
+            )}
+            <span className="text-[11px] text-[#8A94A6] shrink-0">
+              {formatShortDate(signal.timestamp)}
+            </span>
+          </div>
+
+          {/* Status Tag (ONLY for Triggered, Suppressed, or Merged) */}
+          <div className="shrink-0 flex items-center gap-1">
+            {isTriggered && (
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-[#FEF3F2] text-[#B42318] border border-[#FECDCA]">
+                Triggered
+              </span>
+            )}
+            {isSuppressed && (
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-[#F2F4F7] text-[#5B6676] border border-[#EAECF0]">
+                Suppressed
+              </span>
+            )}
+            {isMerged && (
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-[#EDF3FC] text-[#1F4E9C] border border-[#B2CCF2]">
+                Merged
+              </span>
+            )}
+
+            {/* Toggle Drawer Button */}
+            <button
+              type="button"
+              onClick={handleToggleExpand}
+              className="p-0.5 text-[#8A94A6] hover:text-[#0F1B2D] rounded transition-colors"
+              aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
+            >
+              {isExpanded ? (
+                <ChevronUp className="w-3.5 h-3.5" />
+              ) : (
+                <ChevronDown className="w-3.5 h-3.5" />
+              )}
+            </button>
           </div>
         </div>
 
-        {/* Impact Gauge */}
-        <div className="flex flex-col items-center">
-          <span className="text-[10px] font-mono text-slate-400">Impact</span>
-          <span className={`text-xs font-mono font-bold px-1.5 py-0.5 rounded ${sev.badge}`}>
-            {signal.impact_score.toFixed(1)}/10
-          </span>
-        </div>
+        {/* Line 2: Headline clamped to 2 lines */}
+        <p className="text-xs text-[#0F1B2D] leading-snug line-clamp-2 my-1.5">
+          {signal.headline}
+        </p>
 
-        {/* Confidence Ring with popover */}
-        <div className="flex flex-col items-center">
-          <span className="text-[10px] font-mono text-slate-400">Conf</span>
-          <ConfidenceRing score={signal.confidence} parts={signal.confidence_parts} />
+        {/* Line 3: Inline metrics & suppressed reason */}
+        <div className="flex items-center justify-between gap-2 text-[11px] text-[#5B6676] pt-1 border-t border-[#F2F4F7]">
+          <div className="flex items-center gap-3">
+            {/* Sentiment */}
+            <span className="flex items-center gap-0.5 tabular-nums">
+              {isNegative ? (
+                <ArrowDown className="w-3 h-3 text-[#B42318]" />
+              ) : isPositive ? (
+                <ArrowUp className="w-3 h-3 text-[#067647]" />
+              ) : (
+                <Minus className="w-3 h-3 text-[#5B6676]" />
+              )}
+              <span className={isNegative ? 'text-[#B42318] font-medium' : isPositive ? 'text-[#067647] font-medium' : ''}>
+                {sentiment > 0 ? `+${sentiment.toFixed(2)}` : sentiment.toFixed(2)}
+              </span>
+            </span>
+
+            {/* Impact Score */}
+            <span className="tabular-nums">
+              <span className="text-[#8A94A6] mr-1">Impact</span>
+              <span className="font-semibold text-[#0F1B2D]">{signal.impact_score.toFixed(1)}</span>
+            </span>
+
+            {/* Confidence */}
+            <span className="tabular-nums">
+              <span className="text-[#8A94A6] mr-1">Conf</span>
+              <span className="font-medium text-[#0F1B2D]">{formatConfidence(signal.confidence)}</span>
+            </span>
+          </div>
+
+          {/* Short Reason on Suppressed Rows */}
+          {isSuppressed && signal.suppression_reason && (
+            <span
+              className="text-[10px] text-[#8A94A6] truncate max-w-[130px]"
+              title={signal.suppression_reason}
+            >
+              {signal.suppression_reason.replace(/^(suppressed:\s*)/i, '')}
+            </span>
+          )}
         </div>
       </div>
 
-      {/* Calibrated Move String */}
-      {signal.calibrated_explanation && (
-        <div className="text-[11px] font-mono text-cyan-300/90 bg-cyan-950/20 border border-cyan-800/30 rounded px-2 py-1 mb-2">
-          {signal.calibrated_explanation}
-        </div>
-      )}
+      {/* Expandable Details Drawer */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="border-t border-[#E3E6EB] bg-[#F9FAFB] p-3 text-xs space-y-2.5 overflow-hidden"
+          >
+            {/* Meta tags */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="px-1.5 py-0.5 rounded text-[10px] bg-white border border-[#E3E6EB] text-[#475467]">
+                {humanizeEventClass(signal.event_class)}
+              </span>
+              <span
+                className={`px-1.5 py-0.5 rounded text-[10px] border ${
+                  isFallback
+                    ? 'bg-[#FFFAEB] border-[#FEDF89] text-[#B54708]'
+                    : 'bg-white border-[#E3E6EB] text-[#475467]'
+                }`}
+              >
+                Extractor: {modelClean}
+              </span>
+              {signal.calibrated_move_pct !== null && signal.calibrated_move_pct !== undefined && (
+                <span className="px-1.5 py-0.5 rounded text-[10px] bg-white border border-[#E3E6EB] text-[#0F1B2D] tabular-nums font-medium">
+                  Calibrated move: {formatPct(signal.calibrated_move_pct, 1)}
+                </span>
+              )}
+            </div>
 
-      {/* Themes and Tag Chips */}
-      {signal.themes && signal.themes.length > 0 && signal.themes[0] !== 'none' && (
-        <div className="flex flex-wrap gap-1 mb-1">
-          {signal.themes.map((th) => (
-            <span
-              key={th}
-              className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-800/60 text-slate-300 border border-slate-700/60"
-            >
-              #{th}
-            </span>
-          ))}
-        </div>
-      )}
+            {/* Themes */}
+            {signal.themes && signal.themes.length > 0 && signal.themes[0] !== 'none' && (
+              <div>
+                <span className="text-[11px] text-[#5B6676] block mb-1">Themes:</span>
+                <div className="flex flex-wrap gap-1">
+                  {signal.themes.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2 py-0.5 rounded text-[11px] bg-[#EDF3FC] text-[#1F4E9C] border border-[#B2CCF2]"
+                    >
+                      {humanizeTheme(t)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
-      {/* Suppressed Reason Banner */}
-      {isSuppressed && signal.suppression_reason && (
-        <div className="mt-2 text-[11px] text-amber-300/90 bg-amber-950/30 border border-amber-800/40 rounded p-1.5 flex items-start gap-1.5">
-          <AlertTriangle className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
-          <span>Refused to trigger: {signal.suppression_reason}</span>
-        </div>
-      )}
-    </motion.div>
+            {/* Confidence Breakdown Bars */}
+            {signal.confidence_parts && (
+              <div className="space-y-1.5 pt-1 border-t border-[#EAECF0]">
+                <div className="flex justify-between text-[11px] text-[#5B6676]">
+                  <span>Confidence factors</span>
+                  <span className="font-semibold text-[#0F1B2D]">{formatConfidence(signal.confidence)}</span>
+                </div>
+                {Object.entries(signal.confidence_parts).map(([k, v]) => {
+                  if (v === undefined || v === null) return null
+                  const label = k.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+                  const valPct = Math.round(v * 100)
+                  return (
+                    <div key={k} className="text-[10px]">
+                      <div className="flex justify-between text-[#8A94A6] mb-0.5">
+                        <span>{label}</span>
+                        <span className="tabular-nums font-medium text-[#0F1B2D]">{valPct}%</span>
+                      </div>
+                      <div className="w-full bg-[#EAECF0] h-1 rounded-full overflow-hidden">
+                        <div
+                          className="bg-[#1F4E9C] h-1 rounded-full"
+                          style={{ width: `${Math.min(100, Math.max(0, valPct))}%` }}
+                        />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+
+            {/* Rationale */}
+            {signal.rationale && (
+              <div className="pt-1 border-t border-[#EAECF0] text-[11px] text-[#5B6676]">
+                <span className="font-medium text-[#0F1B2D]">Analysis rationale: </span>
+                {signal.rationale}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
