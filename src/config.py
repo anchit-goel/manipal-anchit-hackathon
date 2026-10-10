@@ -36,8 +36,36 @@ GOLD_EVAL_FILE = EVAL_DIR / "gold.jsonl"
 
 # Engine Parameters & Thresholds
 MAX_LLM_CALLS = int(os.getenv("MAX_LLM_CALLS", "150"))
+LLM_MAX_RPM = int(os.getenv("LLM_MAX_RPM", "4"))
 TRIGGER_IMPACT_THRESHOLD = 7.0
 TRIGGER_CONFIDENCE_THRESHOLD = 0.6
+
+# Controlled Risk Themes Vocabulary (Task 1)
+CONTROLLED_THEMES = [
+    "shipping_disruption",
+    "oil_price_up",
+    "oil_price_down",
+    "credit_downgrade",
+    "credit_default",
+    "banking_stress",
+    "rate_hike",
+    "rate_cut",
+    "regulatory_action",
+    "antitrust",
+    "chip_supply_shock",
+    "sanctions",
+    "demand_shock",
+    "merger_activity",
+    "none",
+]
+
+# Calibration Paths (Tasks 2, 3, 4, 5, 6)
+CALIBRATION_DIR = DATA_DIR / "calibration"
+CALIBRATION_PRICES_DIR = CALIBRATION_DIR / "prices"
+CALIBRATION_EVENTS_FILE = CALIBRATION_DIR / "events.csv"
+CALIBRATION_EVENTS_TEXT_FILE = CALIBRATION_DIR / "events_text.jsonl"
+CALIBRATION_MODEL_FILE = CALIBRATION_DIR / "calibration_model.json"
+SHOCK_SEED_FILE = CALIBRATION_DIR / "shock_seed.csv"
 
 # Source Reliability Priors
 SOURCE_RELIABILITY_TABLE = {

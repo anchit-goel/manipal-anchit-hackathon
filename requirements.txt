@@ -15,8 +15,10 @@ transformers>=4.38.0
 google-generativeai>=0.8.0
 openai>=1.20.0
 
-# Market Data & Stress Testing
+# Market Data, Stats & Calibration
 yfinance>=0.2.36
+matplotlib>=3.8.0
+scikit-learn>=1.4.0
 
 # API & Dashboard
 fastapi>=0.110.0
