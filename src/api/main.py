@@ -147,3 +147,107 @@ def analyze_text(request: AnalyzeRequest):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("src.api.main:app", host="0.0.0.0", port=API_PORT, reload=True)
+
+
+# ---------------------------------------------------------------------------
+# Phase 4: portfolio, shock table, stress testing, replay stream, calibration
+# ---------------------------------------------------------------------------
+import asyncio  # noqa: E402
+
+from fastapi.responses import StreamingResponse  # noqa: E402
+
+from src.config import CALIBRATION_DIR, CALIBRATION_MODEL_FILE  # noqa: E402
+from src.schemas import CustomStressRequest, StressResult  # noqa: E402
+from src.stress.engine import load_portfolio, run_custom, run_stress  # noqa: E402
+from src.stress.replay import build_replay  # noqa: E402
+from src.stress.shock_table import load_shock_table  # noqa: E402
+from src.stress.trigger import suppression_reason  # noqa: E402
+from src.engine.calibrate import calibrated_move  # noqa: E402
+from src.config import CONTROLLED_THEMES  # noqa: E402
+
+
+@app.get("/portfolio")
+def get_portfolio():
+    """SYNTHETIC portfolio positions plus aggregate exposures."""
+    df = load_portfolio()
+    total = float(df["market_value"].sum())
+    agg = lambda col: {k: round(float(v), 2) for k, v in df.groupby(col)["market_value"].sum().sort_values(ascending=False).items()}
+    tags: dict = {}
+    for _, r in df.iterrows():
+        for t in r["tag_list"]:
+            tags[t] = tags.get(t, 0.0) + float(r["market_value"])
+    positions = df.drop(columns=["tag_list"]).fillna("").to_dict(orient="records")
+    for p, tl in zip(positions, df["tag_list"]):
+        p["tags"] = tl
+    return {
+        "synthetic": True,
+        "total_market_value": round(total, 2),
+        "n_positions": len(df),
+        "by_asset_type": agg("asset_type"),
+        "by_sector": agg("sector"),
+        "by_country": agg("country"),
+        "by_tag": {k: round(v, 2) for k, v in sorted(tags.items(), key=lambda kv: -kv[1])},
+        "positions": positions,
+    }
+
+
+@app.get("/shock-table")
+def get_shock_table():
+    """Theme x tag shock table with measured/assumed flags."""
+    return load_shock_table().to_dict(orient="records")
+
+
+@app.get("/stress/{signal_id}", response_model=StressResult)
+def get_stress(signal_id: str):
+    """Stress result for a trigger-eligible signal; 404 with suppression reason otherwise."""
+    sig = next((s for s in read_all_signals() if s.signal_id == signal_id), None)
+    if sig is None:
+        raise HTTPException(status_code=404, detail={"signal_id": signal_id, "reason": "signal not found"})
+    reason = suppression_reason(sig)
+    if reason:
+        raise HTTPException(status_code=404, detail={"signal_id": signal_id, "eligible": False, "reason": reason})
+    return run_stress(sig)
+
+
+@app.post("/stress/custom", response_model=StressResult)
+def post_custom_stress(req: CustomStressRequest):
+    """What-if: apply a theme at a chosen severity (1-10)."""
+    if req.theme not in CONTROLLED_THEMES or req.theme == "none":
+        raise HTTPException(status_code=422, detail=f"theme must be one of {CONTROLLED_THEMES}")
+    return run_custom(req.theme, req.severity)
+
+
+@app.get("/replay/stream")
+async def replay_stream(speed: float = Query(1.0, gt=0, description="Playback speed multiplier")):
+    """Server-Sent Events replay of stored signals with stress outcomes (deterministic, offline-safe)."""
+    records = build_replay(read_all_signals())
+
+    async def gen():
+        for i, rec in enumerate(records):
+            yield f"data: {json.dumps({'type': 'signal', 'index': i, 'signal': rec['signal']})}\n\n"
+            await asyncio.sleep(0.5 / speed)
+            yield f"data: {json.dumps({**rec['outcome'], 'index': i})}\n\n"
+            await asyncio.sleep(1.5 / speed)
+        yield f"data: {json.dumps({'type': 'end', 'count': len(records)})}\n\n"
+
+    return StreamingResponse(gen(), media_type="text/event-stream",
+                             headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+
+
+@app.get("/calibration")
+def get_calibration():
+    """Calibration curve points, bucket table and fit statistics for plotting."""
+    if not CALIBRATION_MODEL_FILE.exists():
+        raise HTTPException(status_code=404, detail="calibration model not fitted")
+    model = json.loads(CALIBRATION_MODEL_FILE.read_text())
+    pts_file = CALIBRATION_DIR / "calibration_points.csv"
+    points = []
+    if pts_file.exists():
+        import pandas as pd
+        points = pd.read_csv(pts_file).to_dict(orient="records")
+    curve = []
+    for i in range(10, 101, 5):
+        x = i / 10.0
+        mid, lo, hi, _ = calibrated_move(x, -1.0)
+        curve.append({"impact": x, "move_pct": mid, "low_pct": lo, "high_pct": hi})
+    return {"fit": model, "buckets": model.get("buckets", []), "points": points, "curve": curve}

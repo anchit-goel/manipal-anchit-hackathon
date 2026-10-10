@@ -130,3 +130,49 @@ class Signal(BaseModel):
             v = [t.strip().lower() for t in v.split(",") if t.strip()]
         valid = [t for t in v if t in CONTROLLED_THEMES]
         return valid[:2]
+
+
+class PositionImpact(BaseModel):
+    """Per-position stress outcome with the rule that produced it."""
+    position_id: str
+    counterparty: str
+    asset_type: str
+    sector: str
+    country: str
+    market_value: float
+    pnl: float
+    pnl_pct: float
+    theme: Optional[str] = None
+    tag: Optional[str] = None
+    rule_source: Optional[str] = None
+    why: str = ""
+
+
+class StressResult(BaseModel):
+    """Exposure-aware stress outcome for a signal, what-if or merged scenario."""
+    scenario_id: str
+    lead_signal_id: Optional[str] = None
+    corroborating_signal_ids: list[str] = Field(default_factory=list)
+    themes: list[str] = Field(default_factory=list)
+    severity_scale: float
+    headline_move_pct: float
+    total_before: float
+    total_after: float
+    pnl_abs: float
+    pnl_pct: float
+    naive_pnl_abs: float
+    naive_pnl_pct: float
+    positions_hit: int
+    by_asset_type: Dict[str, float]
+    by_sector: Dict[str, float]
+    by_country: Dict[str, float]
+    top_losers: list[PositionImpact]
+    top_winners: list[PositionImpact]
+    waterfall: list[Dict[str, Any]]
+    positions: list[PositionImpact]
+
+
+class CustomStressRequest(BaseModel):
+    """What-if stress input."""
+    theme: str
+    severity: float = Field(..., ge=1.0, le=10.0)

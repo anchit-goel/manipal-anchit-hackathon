@@ -125,3 +125,11 @@ def get_logger(name: str) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
     return logger
+
+
+# Phase 4: Portfolio & Stress-Test Paths and Parameters
+PORTFOLIO_DIR = DATA_DIR / "portfolio"
+PORTFOLIO_FILE = PORTFOLIO_DIR / "portfolio.csv"
+SHOCK_TABLE_FILE = PORTFOLIO_DIR / "shock_table.csv"
+DEBOUNCE_HOURS = 48
+LOAN_LGD = 0.45

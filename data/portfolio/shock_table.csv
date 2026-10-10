@@ -1,0 +1,42 @@
+theme,tag,equity_pct,spread_bps,pd_bump_pct,underlying_pct,source,rationale
+shipping_disruption,trade_finance,-4.0,60,3.0,0.0,assumed,Rerouted voyages strain trade-finance borrowers
+shipping_disruption,shipping,17.46,90,2.5,0.0,measured,"Carrier credit stress; equity side reflects freight-rate windfall when measured (equity from event study, BDRY)"
+shipping_disruption,asia_trade,-1.0,30,1.0,0.0,assumed,"Asia-Europe lanes delayed, working capital stress"
+shipping_disruption,energy_consumer,-1.0,10,0.3,0.0,assumed,Higher bunker and logistics costs
+oil_price_up,energy_producer,8.0,-15,-0.3,0.0,assumed,Higher realised crude price lifts margins
+oil_price_up,airline,-12.0,120,3.5,0.0,assumed,Jet fuel is the largest variable cost
+oil_price_up,energy_consumer,-10.0,80,3.0,0.0,assumed,Input cost squeeze
+oil_price_up,oil,0.0,0,0.0,8.0,assumed,Oil swap underlying moves +8% at reference severity
+oil_price_down,energy_producer,-9.0,50,1.5,0.0,assumed,Lower realised price compresses margins
+oil_price_down,airline,6.0,-40,-1.0,0.0,assumed,Fuel cost relief
+oil_price_down,energy_consumer,4.0,-25,-0.5,0.0,assumed,Input cost relief
+oil_price_down,oil,0.0,0,0.0,-8.0,assumed,Oil swap underlying moves -8% at reference severity
+credit_downgrade,us_banking,0.12,70,1.0,0.0,measured,"Funding-cost and counterparty-risk repricing (equity from event study, XLF)"
+credit_downgrade,eu_banking,0.12,50,0.7,0.0,measured,"Contagion to peers (equity from event study, XLF)"
+credit_default,us_banking,-1.32,150,2.0,0.0,measured,"Sovereign/counterparty default losses (equity from event study, XLF)"
+credit_default,eu_banking,-1.32,120,1.6,0.0,measured,"Cross-border contagion (equity from event study, XLF)"
+credit_default,india_banking,-5.0,80,1.0,0.0,assumed,EM bank spillover
+credit_default,trade_finance,-2.0,60,2.0,0.0,assumed,Trade credit tightens
+banking_stress,us_banking,-2.61,120,1.5,0.0,measured,"Liquidity run risk (equity from event study, XLF)"
+banking_stress,eu_banking,-2.61,100,1.2,0.0,measured,"Liquidity contagion (equity from event study, XLF)"
+banking_stress,rate_sensitive,-2.0,20,0.2,0.0,assumed,Flight-to-quality spread widening
+rate_hike,rate_sensitive,-4.0,40,0.3,0.0,assumed,Duration loss on fixed-rate book
+rate_hike,tech,-6.0,20,0.2,0.0,assumed,Long-duration equity de-rating
+rate_hike,rates,0.0,0,0.0,0.8,assumed,Pay-fixed swap MTM gain per unit of notional delta
+rate_cut,rate_sensitive,3.0,-30,-0.2,0.0,assumed,Duration gain
+rate_cut,tech,4.0,-10,-0.1,0.0,assumed,Equity re-rating
+rate_cut,rates,0.0,0,0.0,-0.8,assumed,Pay-fixed swap MTM loss
+regulatory_action,aerospace,-6.0,50,1.0,0.0,assumed,Production and delivery constraints
+regulatory_action,tech,-3.0,15,0.2,0.0,assumed,Compliance cost
+antitrust,tech,-7.0,25,0.3,0.0,assumed,Business-model remedies risk
+antitrust,semiconductor,-8.0,30,0.4,0.0,assumed,Bundling and licensing scrutiny
+chip_supply_shock,semiconductor,-10.0,60,1.2,0.0,assumed,Packaging/fab capacity shock
+chip_supply_shock,chip_dependent,-8.0,70,1.5,0.0,assumed,Production line stoppages
+chip_supply_shock,tech,-4.0,20,0.3,0.0,assumed,Hardware supply constraints
+sanctions,energy_producer,-5.0,40,0.8,0.0,assumed,Export restrictions and compliance
+sanctions,shipping,-4.0,50,1.0,0.0,assumed,Trade-lane restrictions
+sanctions,asia_trade,-2.0,20,0.5,0.0,assumed,Secondary sanction risk
+demand_shock,asia_trade,-5.0,50,1.0,0.0,assumed,Export volumes fall
+demand_shock,shipping,-6.0,70,1.5,0.0,assumed,Freight volumes fall
+demand_shock,airline,-8.0,80,2.0,0.0,assumed,Travel demand falls
+demand_shock,tech,-4.0,20,0.3,0.0,assumed,Capex cuts
