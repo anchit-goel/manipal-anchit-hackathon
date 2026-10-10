@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:53:08.332084+00:00",
+  "prompt_tokens": 78,
+  "completion_tokens": 94,
+  "response": {
+    "entity": "Bank of America",
+    "ticker": "BAC",
+    "sector": "Banking",
+    "country": "USA",
+    "themes": [
+      "credit_downgrade"
+    ],
+    "event_class": "Credit Event",
+    "sentiment_score": -0.65,
+    "impact_score": 7.2,
+    "claim_certainty": "confirmed",
+    "rationale": "A formal credit rating downgrade by a major agency increases the cost of capital and signals institutional concern regarding CRE asset quality and funding liquidity.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

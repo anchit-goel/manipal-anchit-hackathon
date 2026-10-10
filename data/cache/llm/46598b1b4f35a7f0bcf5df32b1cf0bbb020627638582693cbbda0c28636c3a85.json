@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.6-flash",
+  "cached_at": "2026-10-10T19:36:56.478819+00:00",
+  "prompt_tokens": 80,
+  "completion_tokens": 90,
+  "response": {
+    "entity": "Microsoft",
+    "ticker": "MSFT",
+    "sector": "Technology",
+    "country": "USA",
+    "themes": [
+      "none"
+    ],
+    "event_class": "Other",
+    "sentiment_score": 0.3,
+    "impact_score": 1.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Routine cloud infrastructure expansion in the Nordic region supporting regional regulatory compliance without material impact on global financial forecasts or market valuation.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.6-flash"
+  }
+}

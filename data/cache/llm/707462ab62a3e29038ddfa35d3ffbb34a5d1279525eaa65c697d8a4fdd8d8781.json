@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T20:10:27.700508+00:00",
+  "prompt_tokens": 5668,
+  "completion_tokens": 94,
+  "response": {
+    "entity": "OPEC+ Supply Cut",
+    "ticker": null,
+    "sector": "Energy",
+    "country": "Global",
+    "themes": [
+      "oil_price_up"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": 0.6,
+    "impact_score": 7.5,
+    "claim_certainty": "confirmed",
+    "rationale": "OPEC-led production cuts represent a significant supply-side intervention in global energy markets, typically resulting in upward pressure on crude oil prices and benefiting integrated energy majors.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

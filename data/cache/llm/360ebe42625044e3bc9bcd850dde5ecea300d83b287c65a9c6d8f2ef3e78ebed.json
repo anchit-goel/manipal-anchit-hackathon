@@ -1,0 +1,25 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:40:03.948193+00:00",
+  "prompt_tokens": 118,
+  "completion_tokens": 102,
+  "response": {
+    "entity": "NVIDIA",
+    "ticker": "NVDA",
+    "sector": "Semiconductors",
+    "country": "USA",
+    "themes": [
+      "antitrust",
+      "regulatory_action"
+    ],
+    "event_class": "Regulatory",
+    "sentiment_score": -0.65,
+    "impact_score": 7.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Coordinated international antitrust scrutiny by the FTC and EC regarding AI server bundling practices threatens to undermine high-margin, multi-year lock-in agreements and could lead to significant legal and operational restructuring costs.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

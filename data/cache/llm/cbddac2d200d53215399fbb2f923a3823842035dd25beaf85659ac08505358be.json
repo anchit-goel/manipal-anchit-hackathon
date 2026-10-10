@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:53:59.340880+00:00",
+  "prompt_tokens": 54,
+  "completion_tokens": 88,
+  "response": {
+    "entity": "Citigroup",
+    "ticker": "C",
+    "sector": "Banking",
+    "country": "USA",
+    "themes": [
+      "banking_stress"
+    ],
+    "event_class": "Credit Event",
+    "sentiment_score": -0.5,
+    "impact_score": 4.0,
+    "claim_certainty": "rumor",
+    "rationale": "Unverified, anonymous social media speculation regarding liquidity issues; lacks credible sourcing or corroborating market data, resulting in a significant downward adjustment to impact score.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

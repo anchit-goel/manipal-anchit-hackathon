@@ -31,6 +31,7 @@ htmlcov/
 # Local data cache
 data/cache/*
 !data/cache/llm/
+!data/cache/finbert/
 data/raw/newsapi/*.json
 data/raw/gdelt/*.json
 !data/raw/newsapi/sample_news_illustrative.json
@@ -40,3 +41,7 @@ data/raw/gdelt/*.json
 # OS files
 .DS_Store
 Thumbs.db
+
+# Frontend
+node_modules/
+

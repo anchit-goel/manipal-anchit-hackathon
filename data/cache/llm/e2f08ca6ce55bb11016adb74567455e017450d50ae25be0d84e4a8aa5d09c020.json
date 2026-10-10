@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T20:10:13.200117+00:00",
+  "prompt_tokens": 5668,
+  "completion_tokens": 88,
+  "response": {
+    "entity": "OPEC+ Supply Cut",
+    "ticker": null,
+    "sector": "Energy",
+    "country": "Global",
+    "themes": [
+      "oil_price_up"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": 0.6,
+    "impact_score": 7.5,
+    "claim_certainty": "confirmed",
+    "rationale": "OPEC+ announced supply cuts across Middle East crude facilities, which typically triggers upward pressure on global oil prices and benefits energy sector margins.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:53:25.903754+00:00",
+  "prompt_tokens": 74,
+  "completion_tokens": 94,
+  "response": {
+    "entity": "A.P. Moller - Maersk",
+    "ticker": "MAERSK-B.CO",
+    "sector": "Shipping",
+    "country": "DNK",
+    "themes": [
+      "shipping_disruption"
+    ],
+    "event_class": "Geopolitical",
+    "sentiment_score": -0.8,
+    "impact_score": 8.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Direct kinetic attack on commercial shipping assets forces indefinite suspension of Suez Canal transit, necessitating costly and time-consuming rerouting around the Cape of Good Hope.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

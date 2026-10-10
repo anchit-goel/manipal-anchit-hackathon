@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:45:33.952737+00:00",
+  "prompt_tokens": 58,
+  "completion_tokens": 92,
+  "response": {
+    "entity": "OPEC+ Supply Cut",
+    "ticker": null,
+    "sector": "Energy",
+    "country": "Global",
+    "themes": [
+      "oil_price_up"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": 0.75,
+    "impact_score": 8.5,
+    "claim_certainty": "confirmed",
+    "rationale": "A 2M bpd production cut is a significant supply-side shock that will materially increase upstream margins for global energy majors and drive broad inflationary pressure.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

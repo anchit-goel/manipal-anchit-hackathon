@@ -1,0 +1,25 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:39:48.649628+00:00",
+  "prompt_tokens": 118,
+  "completion_tokens": 84,
+  "response": {
+    "entity": "NVIDIA",
+    "ticker": "NVDA",
+    "sector": "Semiconductors",
+    "country": "USA",
+    "themes": [
+      "antitrust",
+      "regulatory_action"
+    ],
+    "event_class": "Regulatory",
+    "sentiment_score": -0.65,
+    "impact_score": 7.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Coordinated international antitrust scrutiny from the FTC and EC regarding bundling practices threatens NVIDIA's high-margin AI ecosystem and long-term customer lock-in strategies.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

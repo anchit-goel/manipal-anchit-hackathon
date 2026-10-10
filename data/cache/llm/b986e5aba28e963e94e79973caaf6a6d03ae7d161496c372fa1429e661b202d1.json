@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:54:08.993737+00:00",
+  "prompt_tokens": 62,
+  "completion_tokens": 74,
+  "response": {
+    "entity": "Apple Inc.",
+    "ticker": "AAPL",
+    "sector": "Technology",
+    "country": "USA",
+    "themes": [
+      "none"
+    ],
+    "event_class": "Product Launch",
+    "sentiment_score": 0.1,
+    "impact_score": 1.2,
+    "claim_certainty": "confirmed",
+    "rationale": "Routine cosmetic update to existing product line; no material impact on financial performance or market positioning.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}
