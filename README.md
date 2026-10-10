@@ -57,8 +57,19 @@ Modern wholesale and commercial bank risk desks are bombarded by thousands of un
      [ $1.32B Synthetic Wholesale Portfolio Stress Engine ]
                  │
                  ▼
-     [ FastAPI REST & SSE Stream ──► React 19 Dark Command Centre UI ]
+     [ FastAPI REST & SSE Stream ──► React 19 Institutional Risk-Analytics UI ]
 ```
+
+### Institutional Risk Interface Showcase
+*Clean, calm, dense financial data product aesthetic (#F5F6F8 light theme, bundled offline Inter & IBM Plex Mono fonts, real exposure treemap, tabular numerals).*
+
+| Monitor View (Resting Book & KPI Strip) | Active Scenario Shock (Red Sea Transmission) |
+| :---: | :---: |
+| ![Monitor View](docs/screenshots/01_monitor_overview.png) | ![Red Sea Scenario](docs/screenshots/04_red_sea_scenario.png) |
+
+| Net-Positive Offsets (OPEC+ Crude Shock) | Empirical Calibration Scatter (n=24 Shocks) |
+| :---: | :---: |
+| ![OPEC Scenario](docs/screenshots/05_opec_net_positive.png) | ![Calibration Scatter](docs/screenshots/09_calibration_scatter.png) |
 
 ### Technology Stack
 | Layer | Technologies & Libraries |

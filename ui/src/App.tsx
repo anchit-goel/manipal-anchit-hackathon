@@ -40,6 +40,7 @@ export const App: React.FC = () => {
   const [speed, setSpeed] = useState<number>(1)
   const [connectionState, setConnectionState] = useState<'connecting' | 'connected' | 'paused' | 'done' | 'error'>('connecting')
   const [lastIndex, setLastIndex] = useState<number>(0)
+  const lastIndexRef = useRef<number>(0)
   const eventSourceRef = useRef<EventSource | null>(null)
 
   // Initial Data Fetch
@@ -77,7 +78,7 @@ export const App: React.FC = () => {
     }
 
     setConnectionState('connecting')
-    const url = `/replay/stream?speed=${speed}&start=${lastIndex}`
+    const url = `/replay/stream?speed=${speed}&start=${lastIndexRef.current}`
     const es = new EventSource(url)
     eventSourceRef.current = es
 
@@ -89,6 +90,7 @@ export const App: React.FC = () => {
       try {
         const payload = JSON.parse(event.data)
         if (payload.index !== undefined) {
+          lastIndexRef.current = payload.index + 1
           setLastIndex(payload.index + 1)
         }
 
@@ -148,7 +150,7 @@ export const App: React.FC = () => {
     return () => {
       es.close()
     }
-  }, [isPlaying, speed, lastIndex])
+  }, [isPlaying, speed])
 
   // Replay Handlers
   const handleTogglePlay = () => {
@@ -160,10 +162,11 @@ export const App: React.FC = () => {
       eventSourceRef.current.close()
       eventSourceRef.current = null
     }
+    lastIndexRef.current = 0
+    setLastIndex(0)
     setSignals([])
     setSelectedSignal(null)
     setStressResult(null)
-    setLastIndex(0)
     setIsPlaying(true)
   }
 

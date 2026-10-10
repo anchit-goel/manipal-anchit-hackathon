@@ -68,6 +68,7 @@ export const ConfidenceRing: React.FC<ConfidenceRingProps> = ({ score, parts }) 
               if (val === undefined || val === null) return null
               const label = key
                 .split('_')
+                .filter(Boolean)
                 .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
                 .join(' ')
               const pVal = Math.round(val * 100)

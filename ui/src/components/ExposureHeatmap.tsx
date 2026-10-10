@@ -90,7 +90,8 @@ export const ExposureHeatmap: React.FC<ExposureHeatmapProps> = ({ portfolio, res
 
   // Custom Treemap Tile Content
   const CustomContent = (props: any) => {
-    const { x, y, width, height, sector, assetType, pnlPct } = props
+    const { x, y, width, height, sector, assetType, pnlPct = 0, name } = props
+    if (!width || !height || width <= 0 || height <= 0) return null
 
     const hasActiveResult = !!result
     const fill = getTileColor(pnlPct, hasActiveResult)
@@ -98,6 +99,9 @@ export const ExposureHeatmap: React.FC<ExposureHeatmapProps> = ({ portfolio, res
 
     const canFitLabel = width >= 48 && height >= 24
     const canFitSubtext = width >= 65 && height >= 42
+    const displaySector = (sector || name || '').slice(0, 8)
+    const displayAsset = assetType ? humanizeAssetType(assetType).split(' ')[0] : ''
+
     return (
       <g className="cursor-pointer transition-opacity hover:opacity-90">
         <rect
@@ -110,7 +114,7 @@ export const ExposureHeatmap: React.FC<ExposureHeatmapProps> = ({ portfolio, res
           strokeWidth={1.5}
           rx={3}
         />
-        {canFitLabel && (
+        {canFitLabel && displaySector && (
           <text
             x={x + 4}
             y={y + 14}
@@ -119,10 +123,10 @@ export const ExposureHeatmap: React.FC<ExposureHeatmapProps> = ({ portfolio, res
             fontWeight={600}
             fontFamily="Inter, sans-serif"
           >
-            {sector.slice(0, 7)}
+            {displaySector}
           </text>
         )}
-        {canFitSubtext && (
+        {canFitSubtext && displayAsset && (
           <text
             x={x + 4}
             y={y + 26}
@@ -131,7 +135,7 @@ export const ExposureHeatmap: React.FC<ExposureHeatmapProps> = ({ portfolio, res
             fontFamily="Inter, sans-serif"
             opacity={0.85}
           >
-            {humanizeAssetType(assetType).split(' ')[0]}
+            {displayAsset}
           </text>
         )}
         {canFitSubtext && hasActiveResult && (

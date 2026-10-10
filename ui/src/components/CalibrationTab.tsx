@@ -40,8 +40,8 @@ export const CalibrationTab: React.FC<CalibrationTabProps> = ({ data, loading })
 
   // Prepare scatter data for the 24 historical events
   const scatterPoints = (points || []).map((p: any) => ({
-    x: p.engine_impact ?? p.impact_score ?? 1.0,
-    y: Math.abs(p.realized_car ?? p.abs_car ?? p.stock_car ?? 0),
+    impact: p.engine_impact ?? p.impact_score ?? 1.0,
+    abs_car: Math.abs(p.realized_car ?? p.abs_car ?? p.stock_car ?? 0),
     rawCar: p.realized_car ?? p.stock_car ?? 0,
     ticker: p.affected_ticker ?? p.ticker ?? 'Unknown',
     date: p.event_date ?? p.date ?? '',
@@ -188,7 +188,7 @@ export const CalibrationTab: React.FC<CalibrationTabProps> = ({ data, loading })
                             Event ID: <span className="font-mono-id">{p.eventId}</span>
                           </div>
                           <div className="text-[#5B6676]">
-                            Impact score: <strong>{p.x.toFixed(1)}</strong>
+                            Impact score: <strong>{(p.impact ?? p.x ?? 0).toFixed(1)}</strong>
                           </div>
                           <div className="text-[#0F1B2D] font-medium mt-0.5">
                             Realized move: {p.rawCar > 0 ? `+${p.rawCar.toFixed(2)}%` : `${p.rawCar.toFixed(2)}%`}
@@ -233,7 +233,8 @@ export const CalibrationTab: React.FC<CalibrationTabProps> = ({ data, loading })
               {/* Historical Event Scatter Points */}
               <Scatter
                 data={scatterPoints}
-                fill="#0F1B2D"
+                dataKey="abs_car"
+                fill="#1F4E9C"
                 line={false}
                 name="Historical events (n=24)"
               />

@@ -86,6 +86,7 @@ export function humanizeTheme(theme: string = ''): string {
   if (THEME_LABELS[clean]) return THEME_LABELS[clean]
   return clean
     .split('_')
+    .filter(Boolean)
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ')
 }
