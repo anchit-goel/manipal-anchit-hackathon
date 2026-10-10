@@ -20,16 +20,29 @@ from src.engine.confidence import ConfidenceCalculator
 logger = get_logger("engine.run")
 
 
+from src.engine.calibrate import calibrate_signals_batch
+
+
 class RiskEngine:
     """End-to-end Risk Engine turning unstructured RawItems into validated institutional Signals."""
 
-    def __init__(self, llm_client: Optional[LLMClient] = None, force_lexicon_finbert: bool = False):
+    def __init__(
+        self,
+        llm_client: Optional[LLMClient] = None,
+        force_lexicon_finbert: bool = False,
+        require_llm: bool = False,
+    ):
+        if llm_client is None:
+            llm_client = LLMClient(require_llm=require_llm)
+        elif require_llm:
+            llm_client.require_llm = True
+
         self.extractor = SignalExtractor(llm_client=llm_client)
         self.finbert = FinBertEngine(force_lexicon=force_lexicon_finbert)
         self.confidence_calc = ConfidenceCalculator()
 
     def process_items(self, raw_items: List[RawItem]) -> List[Signal]:
-        """Process batch of RawItems through extraction, cross-check, corroboration, and confidence."""
+        """Process batch of RawItems through extraction, cross-check, corroboration, confidence, and calibration."""
         if not raw_items:
             logger.warning("No raw items provided to RiskEngine.")
             return []
@@ -68,8 +81,9 @@ class RiskEngine:
             )
 
             signal_id = f"sig_{item.item_id}"
+            ext_version = ext.model_dump().get("model_version") or getattr(self.extractor.llm, "model_name", "rules-fallback")
             model_versions = {
-                "extractor": ext.model_dump().get("model_version", "gemini-3.8-flash"),
+                "extractor": ext_version,
                 "finbert": fb_model,
                 "confidence_engine": "v1.0",
             }
@@ -84,10 +98,11 @@ class RiskEngine:
                 ticker=ext.ticker,
                 sector=ext.sector,
                 country=ext.country,
+                themes=ext.themes,
                 sentiment_score=ext.sentiment_score,
                 event_class=ext.event_class,
                 impact_score=ext.impact_score,
-                calibrated_move_pct=None,  # Reserved for Phase 3 calibration
+                calibrated_move_pct=None,
                 confidence=confidence,
                 rationale=ext.rationale,
                 trigger_eligible=trigger_eligible,
@@ -96,6 +111,9 @@ class RiskEngine:
                 model_versions=model_versions,
             )
             signals.append(sig)
+
+        # 5. Apply empirical market calibration
+        calibrate_signals_batch(signals)
 
         logger.info("Successfully generated %d validated signals.", len(signals))
         return signals
@@ -132,15 +150,17 @@ def write_signals_to_jsonl(signals: List[Signal], filepath: Path):
 
 
 def print_summary_table(signals: List[Signal]):
-    """Print an executive summary table of signals."""
-    print("\n" + "=" * 115)
-    print(f"{'ID':<14} | {'ENTITY / TICKER':<24} | {'CLASS':<18} | {'SENT':<6} | {'IMPACT':<6} | {'CONF':<6} | {'TRIGGER':<7} | {'HEADLINE':<25}")
-    print("=" * 115)
+    """Print an executive summary table of signals with calibrated moves."""
+    print("\n" + "=" * 145)
+    print(f"{'ID':<12} | {'ENTITY / TICKER':<22} | {'CLASS':<14} | {'SENT':<6} | {'IMPACT':<6} | {'CALIB MOVE':<11} | {'CONF':<6} | {'TRIG':<5} | {'EXTRACTOR':<16} | {'HEADLINE':<25}")
+    print("=" * 145)
     for s in signals:
-        ent_str = f"{s.entity[:15]} ({s.ticker or '-'})"
+        ent_str = f"{s.entity[:13]} ({s.ticker or '-'})"
         trig_str = "YES" if s.trigger_eligible else "NO"
-        print(f"{s.signal_id:<14} | {ent_str:<24} | {s.event_class.value:<18} | {s.sentiment_score:>+5.2f} | {s.impact_score:>5.1f} | {s.confidence:>5.2f} | {trig_str:<7} | {s.headline[:25]}")
-    print("=" * 115)
+        cal_str = f"{s.calibrated_move_pct:>+6.2f}%" if s.calibrated_move_pct is not None else "  N/A "
+        ext_str = s.model_versions.get("extractor", "-")[:16]
+        print(f"{s.signal_id:<12} | {ent_str:<22} | {s.event_class.value:<14} | {s.sentiment_score:>+5.2f} | {s.impact_score:>5.1f} | {cal_str:<11} | {s.confidence:>5.2f} | {trig_str:<5} | {ext_str:<16} | {s.headline[:25]}")
+    print("=" * 145)
 
     trigger_count = sum(1 for s in signals if s.trigger_eligible)
     print(f"\nTotal Signals: {len(signals)} | Trigger Eligible: {trigger_count} | Trigger Suppressed: {len(signals) - trigger_count}\n")
@@ -152,14 +172,15 @@ def main():
     parser.add_argument("--limit", type=int, default=150, help="Maximum items to process")
     parser.add_argument("--out", type=str, default=str(SIGNALS_PROCESSED_FILE), help="Output JSONL path")
     parser.add_argument("--offline", action="store_true", help="Force offline rules fallback")
+    parser.add_argument("--require-llm", action="store_true", help="Fail loudly if LLM fails instead of falling back")
 
     args = parser.parse_args()
 
     input_path = REPLAY_EVENTS_FILE if args.input == "replay" else PROCESSED_ITEMS_FILE
     out_path = Path(args.out)
 
-    llm_client = LLMClient(offline_mode=args.offline) if args.offline else None
-    engine = RiskEngine(llm_client=llm_client)
+    llm_client = LLMClient(offline_mode=args.offline, require_llm=args.require_llm) if (args.offline or args.require_llm) else None
+    engine = RiskEngine(llm_client=llm_client, require_llm=args.require_llm)
 
     raw_items = load_raw_items_from_jsonl(input_path, limit=args.limit)
     signals = engine.process_items(raw_items)

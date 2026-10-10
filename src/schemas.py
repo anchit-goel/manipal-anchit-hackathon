@@ -46,6 +46,9 @@ class RawItem(BaseModel):
         return v.strip() if isinstance(v, str) else v
 
 
+from src.config import CONTROLLED_THEMES
+
+
 class Signal(BaseModel):
     """Structured risk signal consumed by downstream stress-testing modules."""
     model_config = ConfigDict(extra="ignore", populate_by_name=True)
@@ -59,6 +62,10 @@ class Signal(BaseModel):
     ticker: Optional[str] = Field(None, description="Market ticker symbol e.g. JPM, NVDA")
     sector: Optional[str] = Field(None, description="Economic sector classification")
     country: Optional[str] = Field(None, description="Primary geographic domicile")
+    themes: list[str] = Field(
+        default_factory=list,
+        description="Controlled macro and sector risk themes (max 2)"
+    )
     sentiment_score: float = Field(
         ...,
         ge=-1.0,
@@ -75,6 +82,18 @@ class Signal(BaseModel):
     calibrated_move_pct: Optional[float] = Field(
         None,
         description="Empirically calibrated expected asset/sector move percentage"
+    )
+    calibrated_low_pct: Optional[float] = Field(
+        None,
+        description="Lower bound of 80% range for expected move"
+    )
+    calibrated_high_pct: Optional[float] = Field(
+        None,
+        description="Upper bound of 80% range for expected move"
+    )
+    calibrated_explanation: Optional[str] = Field(
+        None,
+        description="Human-readable calibrated move explanation"
     )
     confidence: float = Field(
         ...,
@@ -101,3 +120,13 @@ class Signal(BaseModel):
         default_factory=dict,
         description="Version tags of NLP models and LLM extractors used"
     )
+
+    @field_validator("themes", mode="before")
+    @classmethod
+    def validate_themes(cls, v: Any) -> list[str]:
+        if not v:
+            return []
+        if isinstance(v, str):
+            v = [t.strip().lower() for t in v.split(",") if t.strip()]
+        valid = [t for t in v if t in CONTROLLED_THEMES]
+        return valid[:2]
