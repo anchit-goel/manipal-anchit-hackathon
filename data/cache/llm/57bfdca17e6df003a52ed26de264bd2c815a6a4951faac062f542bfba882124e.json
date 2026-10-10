@@ -1,0 +1,21 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.8-flash",
+  "cached_at": "2026-10-08T22:26:02.313576+00:00",
+  "prompt_tokens": 80,
+  "completion_tokens": 90,
+  "response": {
+    "entity": "Toyota Motor",
+    "ticker": "TM",
+    "sector": "Automotive",
+    "country": "JPN",
+    "event_class": "Other",
+    "sentiment_score": 0.35,
+    "impact_score": 2.2,
+    "claim_certainty": "confirmed",
+    "rationale": "Channel checks indicate steady 8-week hybrid order backlogs in North America, reflecting resilient demand and solid operational sales momentum despite high interest rates.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.8-flash"
+  }
+}

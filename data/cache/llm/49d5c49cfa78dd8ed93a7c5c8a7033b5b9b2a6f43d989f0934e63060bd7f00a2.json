@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:32:04.061017+00:00",
+  "prompt_tokens": 72,
+  "completion_tokens": 88,
+  "response": {
+    "entity": "OPEC+ Supply Cut",
+    "ticker": null,
+    "sector": "Energy",
+    "country": "Global",
+    "themes": [
+      "oil_price_down"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": -0.75,
+    "impact_score": 7.8,
+    "claim_certainty": "confirmed",
+    "rationale": "Collapse of OPEC production discipline and subsequent price discounting triggers a supply-glut narrative, likely causing sharp near-term margin compression for major energy producers.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

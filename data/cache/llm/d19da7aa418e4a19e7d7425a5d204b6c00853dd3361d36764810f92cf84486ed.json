@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:31:18.215000+00:00",
+  "prompt_tokens": 80,
+  "completion_tokens": 100,
+  "response": {
+    "entity": "Suez Canal Maritime Blockage",
+    "ticker": null,
+    "sector": "Shipping",
+    "country": "Global",
+    "themes": [
+      "shipping_disruption"
+    ],
+    "event_class": "Geopolitical",
+    "sentiment_score": -0.75,
+    "impact_score": 8.5,
+    "claim_certainty": "confirmed",
+    "rationale": "A major maritime choke point blockage creates immediate, systemic supply chain disruption for global shipping, impacting fuel costs and delivery timelines for major carriers like Maersk and ZIM.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

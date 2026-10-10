@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:30:48.705069+00:00",
+  "prompt_tokens": 74,
+  "completion_tokens": 100,
+  "response": {
+    "entity": "United States Sovereign",
+    "ticker": null,
+    "sector": "Government",
+    "country": "USA",
+    "themes": [
+      "credit_downgrade"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": -0.5,
+    "impact_score": 7.8,
+    "claim_certainty": "confirmed",
+    "rationale": "A sovereign credit downgrade of the world's largest economy represents a significant systemic risk event, impacting global risk-free rate benchmarks and increasing cost of capital across all corporate entities.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

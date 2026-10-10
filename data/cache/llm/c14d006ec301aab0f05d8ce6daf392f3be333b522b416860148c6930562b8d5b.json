@@ -1,0 +1,25 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:28:48.841335+00:00",
+  "prompt_tokens": 74,
+  "completion_tokens": 94,
+  "response": {
+    "entity": "Systemic Banking Contagion",
+    "ticker": null,
+    "sector": "Banking",
+    "country": "CHE",
+    "themes": [
+      "banking_stress",
+      "credit_default"
+    ],
+    "event_class": "Credit Event",
+    "sentiment_score": -0.9,
+    "impact_score": 9.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Government-orchestrated emergency merger to prevent systemic collapse; the total write-down of AT1 capital instruments represents a catastrophic credit event for the European banking sector.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

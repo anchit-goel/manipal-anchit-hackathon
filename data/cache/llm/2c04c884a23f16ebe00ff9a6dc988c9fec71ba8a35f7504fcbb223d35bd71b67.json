@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "cached_at": "2026-10-09T11:45:01.541936+00:00",
+  "prompt_tokens": 102,
+  "completion_tokens": 92,
+  "response": {
+    "entity": "Bank of America",
+    "ticker": "BAC",
+    "sector": "Banking",
+    "country": "USA",
+    "themes": [
+      "banking_stress"
+    ],
+    "event_class": "Credit Event",
+    "sentiment_score": -0.4,
+    "impact_score": 4.5,
+    "claim_certainty": "rumor",
+    "rationale": "Uncorroborated social media rumor alleging liquidity friction and collateral settlement delays; scored down due to lack of verification.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.5-flash"
+  }
+}

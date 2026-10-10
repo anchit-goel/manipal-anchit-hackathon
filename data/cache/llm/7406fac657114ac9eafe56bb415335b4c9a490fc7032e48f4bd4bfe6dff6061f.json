@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:38:50.501418+00:00",
+  "prompt_tokens": 106,
+  "completion_tokens": 98,
+  "response": {
+    "entity": "Red Sea Shipping Disruption",
+    "ticker": null,
+    "sector": "Shipping",
+    "country": "Global",
+    "themes": [
+      "shipping_disruption"
+    ],
+    "event_class": "Geopolitical",
+    "sentiment_score": -0.75,
+    "impact_score": 8.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Massive diversion of global container volume due to security threats and the collapse of standard war-risk insurance coverage creates systemic logistics cost inflation and supply chain bottlenecks.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "cached_at": "2026-10-09T11:41:37.784364+00:00",
+  "prompt_tokens": 32,
+  "completion_tokens": 110,
+  "response": {
+    "entity": "OPEC Supply Cut",
+    "ticker": null,
+    "sector": "Energy",
+    "country": null,
+    "themes": [
+      "oil_price_up"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": 0.75,
+    "impact_score": 8.0,
+    "claim_certainty": "confirmed",
+    "rationale": "OPEC's surprise 2 million bpd production cut represents a major supply-side shock, driving an immediate 8% surge in crude prices and significantly boosting margins for global energy producers.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.5-flash"
+  }
+}

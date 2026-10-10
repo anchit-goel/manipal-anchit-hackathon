@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "cached_at": "2026-10-09T12:57:15.807660+00:00",
+  "prompt_tokens": 148,
+  "completion_tokens": 72,
+  "response": {
+    "entity": "ExxonMobil",
+    "ticker": "XOM",
+    "sector": "Energy",
+    "country": "USA",
+    "themes": [
+      "merger_activity"
+    ],
+    "event_class": "Other",
+    "sentiment_score": 0.15,
+    "impact_score": 7.4,
+    "claim_certainty": "confirmed",
+    "rationale": "Definitive $59.5B Permian mega-merger consolidates key acreage, enhancing long-term capacity but carrying near-term integration risk.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.5-flash"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:40:49.543880+00:00",
+  "prompt_tokens": 108,
+  "completion_tokens": 86,
+  "response": {
+    "entity": "Delta Air Lines",
+    "ticker": "DAL",
+    "sector": "Airlines",
+    "country": "USA",
+    "themes": [
+      "oil_price_up"
+    ],
+    "event_class": "Other",
+    "sentiment_score": -0.45,
+    "impact_score": 5.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Direct margin compression warning due to rising fuel costs; 180bps impact is significant for airline operating margins, necessitating potential fare hikes.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "cached_at": "2026-10-09T11:44:52.251334+00:00",
+  "prompt_tokens": 80,
+  "completion_tokens": 88,
+  "response": {
+    "entity": "Toyota Motor",
+    "ticker": "TM",
+    "sector": "Automotive",
+    "country": "JPN",
+    "themes": [
+      "none"
+    ],
+    "event_class": "Other",
+    "sentiment_score": 0.35,
+    "impact_score": 2.2,
+    "claim_certainty": "confirmed",
+    "rationale": "Channel checks indicate resilient consumer demand and stable order backlogs for hybrid vehicles, mitigating broader macroeconomic financing headwinds.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.5-flash"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "cached_at": "2026-10-09T12:57:31.643229+00:00",
+  "prompt_tokens": 72,
+  "completion_tokens": 120,
+  "response": {
+    "entity": "Federal Reserve Rate Hike",
+    "ticker": null,
+    "sector": "Banking",
+    "country": "USA",
+    "themes": [
+      "rate_hike"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": -0.2,
+    "impact_score": 5.5,
+    "claim_certainty": "confirmed",
+    "rationale": "The Federal Reserve's 25 basis point rate hike represents continued monetary tightening to combat inflation, increasing the cost of capital and impacting net interest margins and credit pricing across the banking sector.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.5-flash"
+  }
+}

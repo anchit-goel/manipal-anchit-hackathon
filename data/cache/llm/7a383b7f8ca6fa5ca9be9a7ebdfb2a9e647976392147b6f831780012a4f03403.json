@@ -1,0 +1,21 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.8-flash",
+  "cached_at": "2026-10-08T22:25:43.274006+00:00",
+  "prompt_tokens": 92,
+  "completion_tokens": 86,
+  "response": {
+    "entity": "Apple Inc.",
+    "ticker": "AAPL",
+    "sector": "Technology",
+    "country": "USA",
+    "event_class": "Product Launch",
+    "sentiment_score": 0.2,
+    "impact_score": 1.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Routine seasonal consumer tablet and accessory refresh with standard spec updates and no material adjustments to pricing or margin guidance.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.8-flash"
+  }
+}

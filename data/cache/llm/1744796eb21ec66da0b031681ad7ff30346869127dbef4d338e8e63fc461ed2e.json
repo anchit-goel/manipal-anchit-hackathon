@@ -1,0 +1,25 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:26:43.900968+00:00",
+  "prompt_tokens": 70,
+  "completion_tokens": 102,
+  "response": {
+    "entity": "Banking Sector (USA)",
+    "ticker": null,
+    "sector": "Banking",
+    "country": "USA",
+    "themes": [
+      "credit_downgrade",
+      "banking_stress"
+    ],
+    "event_class": "Credit Event",
+    "sentiment_score": -0.55,
+    "impact_score": 6.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Systemic warning from a major rating agency regarding margin compression and potential credit rating actions creates negative sentiment and increased risk premiums for the US regional banking sector.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

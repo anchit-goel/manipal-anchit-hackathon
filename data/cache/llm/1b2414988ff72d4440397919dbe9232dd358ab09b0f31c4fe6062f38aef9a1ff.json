@@ -1,0 +1,25 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:27:22.374480+00:00",
+  "prompt_tokens": 60,
+  "completion_tokens": 96,
+  "response": {
+    "entity": "NVIDIA",
+    "ticker": "NVDA",
+    "sector": "Semiconductors",
+    "country": "USA",
+    "themes": [
+      "chip_supply_shock",
+      "sanctions"
+    ],
+    "event_class": "Regulatory",
+    "sentiment_score": -0.75,
+    "impact_score": 8.2,
+    "claim_certainty": "confirmed",
+    "rationale": "New export restrictions on high-performance processors directly impact a significant portion of revenue derived from the Chinese market, necessitating a major shift in supply chain and sales strategy.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "cached_at": "2026-10-09T12:56:01.876245+00:00",
+  "prompt_tokens": 66,
+  "completion_tokens": 104,
+  "response": {
+    "entity": "Morgan Stanley",
+    "ticker": null,
+    "sector": "Banking",
+    "country": "USA",
+    "themes": [
+      "none"
+    ],
+    "event_class": "Other",
+    "sentiment_score": 0.45,
+    "impact_score": 1.8,
+    "claim_certainty": "confirmed",
+    "rationale": "Routine capital return adjustment following the completion of the Federal Reserve's annual supervisory stress tests, reflecting standard bank capital management with no systemic risk implications.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.5-flash"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.8-flash",
+  "cached_at": "2026-10-08T22:30:18.118184+00:00",
+  "prompt_tokens": 62,
+  "completion_tokens": 76,
+  "response": {
+    "entity": "TSMC",
+    "ticker": "TSM",
+    "sector": "Semiconductors",
+    "country": "TWN",
+    "event_class": "Other",
+    "sentiment_score": 0.55,
+    "impact_score": 5.2,
+    "claim_certainty": "confirmed",
+    "rationale": "Full capacity utilization on advanced packaging lines reflects strong AI accelerator demand and pricing power, despite near-term supply constraints.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.8-flash"
+  }
+}

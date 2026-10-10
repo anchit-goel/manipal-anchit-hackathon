@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "cached_at": "2026-10-09T11:45:07.522215+00:00",
+  "prompt_tokens": 90,
+  "completion_tokens": 110,
+  "response": {
+    "entity": "TSMC",
+    "ticker": "TSM",
+    "sector": "Semiconductors",
+    "country": "TWN",
+    "themes": [
+      "chip_supply_shock"
+    ],
+    "event_class": "Other",
+    "sentiment_score": -0.15,
+    "impact_score": 1.5,
+    "claim_certainty": "rumor",
+    "rationale": "Unverified online forum rumors of a minor power fluctuation at TSMC's Fab 18. Scored down significantly under the rumor rule due to lack of official IR confirmation and high likelihood of being immaterial noise.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.5-flash"
+  }
+}

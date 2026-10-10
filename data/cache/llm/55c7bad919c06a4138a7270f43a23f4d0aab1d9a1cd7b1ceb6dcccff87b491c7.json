@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:32:19.997119+00:00",
+  "prompt_tokens": 76,
+  "completion_tokens": 94,
+  "response": {
+    "entity": "Federal Reserve Policy",
+    "ticker": null,
+    "sector": "Banking",
+    "country": "USA",
+    "themes": [
+      "rate_hike"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": -0.5,
+    "impact_score": 8.5,
+    "claim_certainty": "confirmed",
+    "rationale": "A 75bps rate hike represents a significant tightening of financial conditions, increasing cost of capital for all banking entities and pressuring equity valuations across the sector.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

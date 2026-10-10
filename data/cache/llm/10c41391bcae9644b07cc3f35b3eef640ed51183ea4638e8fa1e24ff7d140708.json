@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "cached_at": "2026-10-09T12:54:59.620078+00:00",
+  "prompt_tokens": 62,
+  "completion_tokens": 68,
+  "response": {
+    "entity": "Chevron",
+    "ticker": "CVX",
+    "sector": "Energy",
+    "country": "USA",
+    "themes": [
+      "none"
+    ],
+    "event_class": "Other",
+    "sentiment_score": 0.35,
+    "impact_score": 2.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Standard corporate debt issuance executed at benchmark-tight spreads reflecting solid balance sheet liquidity.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.5-flash"
+  }
+}

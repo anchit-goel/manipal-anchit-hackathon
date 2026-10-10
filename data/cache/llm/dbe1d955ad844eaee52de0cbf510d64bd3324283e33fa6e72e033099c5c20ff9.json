@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.6-flash",
+  "cached_at": "2026-10-10T19:37:38.772003+00:00",
+  "prompt_tokens": 102,
+  "completion_tokens": 104,
+  "response": {
+    "entity": "Bank of America",
+    "ticker": "BAC",
+    "sector": "Banking",
+    "country": "USA",
+    "themes": [
+      "banking_stress"
+    ],
+    "event_class": "Credit Event",
+    "sentiment_score": -0.4,
+    "impact_score": 4.5,
+    "claim_certainty": "rumor",
+    "rationale": "Uncorroborated trading desk rumor alleging repo collateral settlement friction; discounted significantly in impact score due to total lack of regulatory filing or official verification.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.6-flash"
+  }
+}

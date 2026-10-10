@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:29:24.398240+00:00",
+  "prompt_tokens": 66,
+  "completion_tokens": 92,
+  "response": {
+    "entity": "Geopolitical Conflict",
+    "ticker": null,
+    "sector": "Macroeconomic",
+    "country": "Global",
+    "themes": [
+      "sanctions"
+    ],
+    "event_class": "Geopolitical",
+    "sentiment_score": -0.75,
+    "impact_score": 8.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Large-scale military escalation in Eastern Europe triggers immediate systemic risk, likely leading to severe, broad-based economic sanctions and significant volatility across global energy and financial markets.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.6-flash",
+  "cached_at": "2026-10-10T19:22:57.055330+00:00",
+  "prompt_tokens": 74,
+  "completion_tokens": 90,
+  "response": {
+    "entity": "Apple Inc.",
+    "ticker": "AAPL",
+    "sector": "Technology",
+    "country": "USA",
+    "themes": [
+      "none"
+    ],
+    "event_class": "Product Launch",
+    "sentiment_score": 0.25,
+    "impact_score": 1.8,
+    "claim_certainty": "confirmed",
+    "rationale": "Standard annual flagship smartphone refresh featuring expected hardware upgrades (titanium chassis, USB-C, A17 Pro chip), representing routine product lifecycle execution.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.6-flash"
+  }
+}

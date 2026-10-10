@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "cached_at": "2026-10-09T12:55:17.551648+00:00",
+  "prompt_tokens": 62,
+  "completion_tokens": 88,
+  "response": {
+    "entity": "Cisco Systems",
+    "ticker": null,
+    "sector": "Technology",
+    "country": "USA",
+    "themes": [
+      "none"
+    ],
+    "event_class": "Other",
+    "sentiment_score": 0.0,
+    "impact_score": 1.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Routine quarterly earnings report matching guidance and affirming outlook, representing baseline operational performance with no material market impact.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.5-flash"
+  }
+}

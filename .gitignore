@@ -29,7 +29,8 @@ ENV/
 htmlcov/
 
 # Local data cache
-data/cache/
+data/cache/*
+!data/cache/llm/
 data/raw/newsapi/*.json
 data/raw/gdelt/*.json
 !data/raw/newsapi/sample_news_illustrative.json

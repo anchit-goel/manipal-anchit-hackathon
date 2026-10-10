@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:25:24.268702+00:00",
+  "prompt_tokens": 74,
+  "completion_tokens": 90,
+  "response": {
+    "entity": "Boeing",
+    "ticker": "BA",
+    "sector": "Aerospace",
+    "country": "USA",
+    "themes": [
+      "regulatory_action"
+    ],
+    "event_class": "Regulatory",
+    "sentiment_score": -0.85,
+    "impact_score": 8.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Emergency FAA grounding order for a major aircraft model represents a severe operational and reputational risk, likely leading to significant delivery delays and potential liability costs.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

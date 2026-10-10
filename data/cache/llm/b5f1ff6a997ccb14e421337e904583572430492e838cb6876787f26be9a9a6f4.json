@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:33:00.769682+00:00",
+  "prompt_tokens": 70,
+  "completion_tokens": 102,
+  "response": {
+    "entity": "HSBC Holdings",
+    "ticker": "HSBA.L",
+    "sector": "Banking",
+    "country": "GBR",
+    "themes": [
+      "banking_stress"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": -0.75,
+    "impact_score": 8.5,
+    "claim_certainty": "confirmed",
+    "rationale": "The UK's decision to exit the EU represents a systemic geopolitical and macroeconomic shock, creating severe uncertainty for London-based global banks regarding passporting rights, regulatory fragmentation, and cross-border capital flow volatility.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

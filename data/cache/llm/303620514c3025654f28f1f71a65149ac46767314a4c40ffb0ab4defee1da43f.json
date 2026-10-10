@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:31:46.975547+00:00",
+  "prompt_tokens": 72,
+  "completion_tokens": 114,
+  "response": {
+    "entity": "OPEC+ Supply Cut",
+    "ticker": null,
+    "sector": "Energy",
+    "country": "Global",
+    "themes": [
+      "oil_price_down"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": -0.75,
+    "impact_score": 8.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Collapse of OPEC negotiations and subsequent aggressive price discounting by major producers signals a shift to market share warfare, likely triggering a sustained decline in global crude prices and significant margin compression for upstream energy firms.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

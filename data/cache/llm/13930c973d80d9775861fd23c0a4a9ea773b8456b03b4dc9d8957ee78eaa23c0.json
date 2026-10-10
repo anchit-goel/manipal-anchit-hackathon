@@ -1,0 +1,21 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.8-flash",
+  "cached_at": "2026-10-08T22:25:54.247224+00:00",
+  "prompt_tokens": 166,
+  "completion_tokens": 74,
+  "response": {
+    "entity": "Microsoft",
+    "ticker": "MSFT",
+    "sector": "Technology",
+    "country": "USA",
+    "event_class": "Other",
+    "sentiment_score": 0.25,
+    "impact_score": 2.0,
+    "claim_certainty": "confirmed",
+    "rationale": "Routine expansion of regional cloud infrastructure supported by renewable energy contracts, posing minor incremental operational upside.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.8-flash"
+  }
+}

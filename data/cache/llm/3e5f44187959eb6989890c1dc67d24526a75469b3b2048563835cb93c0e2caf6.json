@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:25:54.246017+00:00",
+  "prompt_tokens": 70,
+  "completion_tokens": 114,
+  "response": {
+    "entity": "Macroeconomic Policy",
+    "ticker": null,
+    "sector": "Banking",
+    "country": "CAN",
+    "themes": [
+      "none"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": 0.0,
+    "impact_score": 2.0,
+    "claim_certainty": "confirmed",
+    "rationale": "The Bank of Canada's decision to hold rates is a standard monetary policy update. While it affects the broader financial environment, it does not directly trigger a specific risk event for the entities in the allowed universe.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

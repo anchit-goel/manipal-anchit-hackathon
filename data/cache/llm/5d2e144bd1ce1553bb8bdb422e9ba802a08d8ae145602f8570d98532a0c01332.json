@@ -1,0 +1,21 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.8-flash",
+  "cached_at": "2026-10-08T22:30:00.800567+00:00",
+  "prompt_tokens": 66,
+  "completion_tokens": 80,
+  "response": {
+    "entity": "Delta Air Lines",
+    "ticker": "DAL",
+    "sector": "Airlines",
+    "country": "USA",
+    "event_class": "Other",
+    "sentiment_score": -0.6,
+    "impact_score": 5.6,
+    "claim_certainty": "confirmed",
+    "rationale": "Direct guidance update warning of 180 bps operating margin compression resulting from escalated jet fuel input costs.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.8-flash"
+  }
+}

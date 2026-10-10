@@ -1,0 +1,21 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.8-flash",
+  "cached_at": "2026-10-08T22:30:12.488764+00:00",
+  "prompt_tokens": 52,
+  "completion_tokens": 90,
+  "response": {
+    "entity": "Federal Reserve Repo Facility",
+    "ticker": null,
+    "sector": "Banking",
+    "country": "USA",
+    "event_class": "Macroeconomic",
+    "sentiment_score": 0.4,
+    "impact_score": 2.2,
+    "claim_certainty": "confirmed",
+    "rationale": "Orderly Federal Reserve overnight repo operations and zero emergency discount window utilization demonstrate ample interbank liquidity and stable wholesale funding markets.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.8-flash"
+  }
+}

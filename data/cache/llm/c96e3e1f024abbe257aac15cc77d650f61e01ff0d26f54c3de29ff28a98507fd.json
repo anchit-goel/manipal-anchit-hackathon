@@ -1,0 +1,25 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:39:21.264477+00:00",
+  "prompt_tokens": 114,
+  "completion_tokens": 90,
+  "response": {
+    "entity": "Citigroup",
+    "ticker": "C",
+    "sector": "Banking",
+    "country": "USA",
+    "themes": [
+      "credit_downgrade",
+      "credit_default"
+    ],
+    "event_class": "Credit Event",
+    "sentiment_score": -0.85,
+    "impact_score": 8.2,
+    "claim_certainty": "confirmed",
+    "rationale": "Formal negative credit watch triggered by significant sovereign counterparty default risk; potential $1.2B loan loss provision creates material earnings headwind and balance sheet pressure.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

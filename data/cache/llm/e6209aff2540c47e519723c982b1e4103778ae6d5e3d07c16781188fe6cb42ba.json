@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:24:51.470909+00:00",
+  "prompt_tokens": 72,
+  "completion_tokens": 104,
+  "response": {
+    "entity": "Federal Reserve Policy",
+    "ticker": null,
+    "sector": "Banking",
+    "country": "USA",
+    "themes": [
+      "rate_hike"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": -0.2,
+    "impact_score": 7.0,
+    "claim_certainty": "confirmed",
+    "rationale": "A 25bps rate hike represents a significant tightening of monetary policy, increasing cost of capital for the banking sector and impacting net interest margins and loan demand across the broader economy.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

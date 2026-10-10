@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "cached_at": "2026-10-09T12:56:45.970888+00:00",
+  "prompt_tokens": 148,
+  "completion_tokens": 86,
+  "response": {
+    "entity": "ExxonMobil",
+    "ticker": "XOM",
+    "sector": "Energy",
+    "country": "USA",
+    "themes": [
+      "merger_activity"
+    ],
+    "event_class": "Other",
+    "sentiment_score": 0.15,
+    "impact_score": 7.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Definitive $59.5B acquisition of Pioneer consolidates Permian Basin footprint, driving major sector-wide M&A and long-term production synergies.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.5-flash"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:29:51.651676+00:00",
+  "prompt_tokens": 76,
+  "completion_tokens": 98,
+  "response": {
+    "entity": "Red Sea Shipping Disruption",
+    "ticker": null,
+    "sector": "Shipping",
+    "country": "Global",
+    "themes": [
+      "shipping_disruption"
+    ],
+    "event_class": "Geopolitical",
+    "sentiment_score": -0.75,
+    "impact_score": 8.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Indefinite suspension of transit through a critical global maritime choke point forces significant vessel rerouting, increasing fuel costs and transit times, creating systemic supply chain inflationary pressure.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

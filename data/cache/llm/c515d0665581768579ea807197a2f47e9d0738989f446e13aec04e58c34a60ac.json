@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:26:16.315181+00:00",
+  "prompt_tokens": 70,
+  "completion_tokens": 82,
+  "response": {
+    "entity": "Chevron",
+    "ticker": "CVX",
+    "sector": "Energy",
+    "country": "USA",
+    "themes": [
+      "merger_activity"
+    ],
+    "event_class": "Other",
+    "sentiment_score": 0.45,
+    "impact_score": 7.2,
+    "claim_certainty": "confirmed",
+    "rationale": "A $53 billion all-stock acquisition represents a major strategic consolidation in the energy sector, significantly expanding upstream reserves in the Guyana-Suriname basin.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

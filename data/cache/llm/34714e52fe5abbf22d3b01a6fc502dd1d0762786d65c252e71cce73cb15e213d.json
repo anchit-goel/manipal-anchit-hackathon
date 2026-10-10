@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:23:39.940425+00:00",
+  "prompt_tokens": 62,
+  "completion_tokens": 88,
+  "response": {
+    "entity": "Eli Lilly and Company",
+    "ticker": null,
+    "sector": "Healthcare",
+    "country": "USA",
+    "themes": [
+      "merger_activity"
+    ],
+    "event_class": "Other",
+    "sentiment_score": 0.3,
+    "impact_score": 2.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Strategic acquisition of a smaller biotech firm to bolster immunology pipeline; falls outside the allowed universe of tickers, thus ticker is null.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "cached_at": "2026-10-09T12:55:46.775951+00:00",
+  "prompt_tokens": 148,
+  "completion_tokens": 72,
+  "response": {
+    "entity": "Eli Lilly",
+    "ticker": null,
+    "sector": "Healthcare",
+    "country": "USA",
+    "themes": [
+      "merger_activity"
+    ],
+    "event_class": "Other",
+    "sentiment_score": 0.25,
+    "impact_score": 3.0,
+    "claim_certainty": "confirmed",
+    "rationale": "Eli Lilly finalizes its $1.4B acquisition of Dice Therapeutics to expand its immunology portfolio.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.5-flash"
+  }
+}

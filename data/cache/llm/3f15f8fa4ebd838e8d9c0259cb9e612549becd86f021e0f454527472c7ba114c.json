@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:30:23.251047+00:00",
+  "prompt_tokens": 72,
+  "completion_tokens": 90,
+  "response": {
+    "entity": "OPEC+ Supply Cut",
+    "ticker": null,
+    "sector": "Energy",
+    "country": "Global",
+    "themes": [
+      "oil_price_up"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": 0.65,
+    "impact_score": 7.8,
+    "claim_certainty": "confirmed",
+    "rationale": "Coordinated supply reduction by major producers is expected to tighten global crude inventories, driving upward pressure on energy prices and benefiting upstream energy entities.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}

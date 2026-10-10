@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "cached_at": "2026-10-10T19:25:45.013516+00:00",
+  "prompt_tokens": 74,
+  "completion_tokens": 86,
+  "response": {
+    "entity": "Boeing",
+    "ticker": "BA",
+    "sector": "Aerospace",
+    "country": "USA",
+    "themes": [
+      "regulatory_action"
+    ],
+    "event_class": "Regulatory",
+    "sentiment_score": -0.85,
+    "impact_score": 8.5,
+    "claim_certainty": "confirmed",
+    "rationale": "Mandatory emergency grounding of fleet by regulator represents a critical safety failure, leading to significant delivery delays, potential customer liability, and severe reputational damage.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.1-flash-lite"
+  }
+}
