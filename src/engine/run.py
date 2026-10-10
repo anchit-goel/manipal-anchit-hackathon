@@ -23,6 +23,13 @@ logger = get_logger("engine.run")
 from src.engine.calibrate import calibrate_signals_batch
 
 
+def normalize_model_label(label: str) -> str:
+    """Collapse doubled provider prefixes such as 'gemini-gemini-3.1-flash-lite'."""
+    while label.startswith("gemini-gemini-"):
+        label = label[len("gemini-"):]
+    return label
+
+
 class RiskEngine:
     """End-to-end Risk Engine turning unstructured RawItems into validated institutional Signals."""
 
@@ -82,6 +89,7 @@ class RiskEngine:
 
             signal_id = f"sig_{item.item_id}"
             ext_version = ext.model_dump().get("model_version") or getattr(self.extractor.llm, "model_name", "rules-fallback")
+            ext_version = normalize_model_label(ext_version)
             model_versions = {
                 "extractor": ext_version,
                 "finbert": fb_model,

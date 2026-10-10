@@ -1,6 +1,6 @@
 """Trigger logic: eligibility, suppression reasons, and 48h same-theme debounce into scenarios."""
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional, Tuple
 
 from src.config import DEBOUNCE_HOURS, TRIGGER_CONFIDENCE_THRESHOLD, TRIGGER_IMPACT_THRESHOLD
@@ -21,8 +21,31 @@ class Suppressed:
     reason: str
 
 
+def parse_ts(value) -> datetime:
+    """Parse mixed timestamp formats/timezones to an aware UTC datetime (epoch/ISO/naive); never raises."""
+    dt = None
+    text = str(value).strip()
+    try:
+        dt = datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        try:
+            dt = datetime.fromtimestamp(float(text), tz=timezone.utc)
+        except (ValueError, OverflowError, OSError):
+            try:
+                import pandas as pd
+                parsed = pd.to_datetime(text, utc=True)
+                dt = None if pd.isna(parsed) else parsed.to_pydatetime()
+            except Exception:
+                dt = None
+    if dt is None:
+        return datetime(1970, 1, 1, tzinfo=timezone.utc)
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
+
+
 def _ts(sig: Signal) -> datetime:
-    return datetime.fromisoformat(sig.timestamp.replace("Z", "+00:00"))
+    return parse_ts(sig.timestamp)
 
 
 def suppression_reason(sig: Signal) -> Optional[str]:

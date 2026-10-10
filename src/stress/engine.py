@@ -17,8 +17,32 @@ DERIV_EXPOSURE_FLOOR_PCT = 0.10  # max derivative loss as share of notional
 DERIV_CVA_EAD_PCT = 0.05         # potential future exposure proxy for CVA
 
 
+REQUIRED_PORTFOLIO_COLS = {
+    "position_id", "asset_type", "counterparty", "ticker", "sector", "country", "market_value",
+    "notional", "duration", "delta", "collateral_pct", "tags",
+}
+
+
 def load_portfolio(path=None) -> pd.DataFrame:
-    df = pd.read_csv(path or PORTFOLIO_FILE)
+    """Load the synthetic book; a missing/malformed default file is regenerated deterministically."""
+    target = path or PORTFOLIO_FILE
+    df = None
+    try:
+        df = pd.read_csv(target)
+        if not REQUIRED_PORTFOLIO_COLS <= set(df.columns) or df.empty:
+            df = None
+    except Exception as e:
+        logger.warning("Portfolio file unreadable (%s)", e)
+    if df is None:
+        if path is not None:
+            raise ValueError(f"malformed portfolio file: {path}")
+        from src.portfolio.build import build_portfolio
+        logger.warning("Regenerating synthetic portfolio at %s", target)
+        df = build_portfolio()
+        target.parent.mkdir(parents=True, exist_ok=True)
+        df.to_csv(target, index=False)
+    for col in ("market_value", "notional", "duration", "delta", "collateral_pct"):
+        df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0.0)
     df["tag_list"] = df["tags"].fillna("").apply(lambda s: [t for t in s.split("|") if t])
     return df
 

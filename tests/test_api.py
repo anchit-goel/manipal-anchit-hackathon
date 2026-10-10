@@ -133,8 +133,8 @@ def test_api_get_triggers(mock_read):
 
 def test_api_post_analyze():
     """Verify POST /analyze produces a valid structured Signal for arbitrary input."""
-    with patch("src.api.main.engine.process_items") as mock_process:
-        mock_process.return_value = [MOCK_SIGNALS[0]]
+    with patch("src.api.main.get_engine") as mock_get_engine:
+        mock_get_engine.return_value.process_items.return_value = [MOCK_SIGNALS[0].model_copy(deep=True)]
         payload = {
             "text": "Missile attack in Red Sea damages commercial freighter; Maersk reroutes shipping fleets.",
             "source": "Interactive Test",

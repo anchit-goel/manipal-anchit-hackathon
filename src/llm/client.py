@@ -25,6 +25,9 @@ from src.universe import CompanyExposure, load_universe, match_company
 logger = get_logger("llm.client")
 
 
+LEGACY_CACHE_MODELS = ["gemini-3.6-flash", "gemini-3.1-flash-lite", "gemini-3.5-flash", "gemini-3.8-flash"]
+
+
 class RulesFallbackExtractor:
     """Deterministic, lexicon-driven fallback extractor when LLM is unavailable."""
 
@@ -242,12 +245,29 @@ class LLMClient:
 
     def _hash_request(self, system: str, user: str, temperature: float) -> str:
         """Create deterministic hash key for prompt and parameters."""
-        raw = f"{self.provider}:{self.model_name}:{temperature}:{system}:{user}"
+        raw = f"{self.provider}:{temperature}:{system}:{user}"
         return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
-    def _get_cached(self, key_hash: str) -> Optional[Dict[str, Any]]:
-        """Retrieve cached LLM completion if present."""
+    def _legacy_hashes(self, system: str, user: str, temperature: float) -> List[str]:
+        """Pre-v2 cache keys embedded the model name, which changed on quota failover."""
+        return [
+            hashlib.sha256(f"{self.provider}:{m}:{temperature}:{system}:{user}".encode("utf-8")).hexdigest()
+            for m in LEGACY_CACHE_MODELS
+        ]
+
+    def _get_cached(self, key_hash: str, legacy: Optional[List[str]] = None) -> Optional[Dict[str, Any]]:
+        """Retrieve cached LLM completion if present (migrating legacy model-keyed entries)."""
         path = self.cache_dir / f"{key_hash}.json"
+        if not path.exists():
+            for lh in legacy or []:
+                lp = self.cache_dir / f"{lh}.json"
+                if lp.exists():
+                    try:
+                        path.write_text(lp.read_text(encoding="utf-8"), encoding="utf-8")
+                    except Exception as e:
+                        logger.warning("Could not migrate legacy cache entry %s: %s", lp, e)
+                        path = lp
+                    break
         if path.exists():
             try:
                 with open(path, "r", encoding="utf-8") as f:
@@ -351,7 +371,7 @@ class LLMClient:
         key_hash = self._hash_request(system, user, temperature)
 
         # 1. Check cache first
-        cached = self._get_cached(key_hash)
+        cached = self._get_cached(key_hash, self._legacy_hashes(system, user, temperature))
         if cached is not None:
             logger.debug("LLM cache HIT for prompt hash %s", key_hash[:8])
             return cached
