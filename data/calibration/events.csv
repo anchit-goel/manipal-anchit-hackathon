@@ -1,0 +1,25 @@
+event_id,event_date,region,event_class,themes,description,affected_ticker,sector_etf,benchmark,direction_expected,notes
+calib_001,2023-09-12,US,Product Launch,none,Apple announces iPhone 15 with titanium chassis and USB-C at keynote,AAPL,XLK,SPY,1,Routine annual consumer hardware refresh
+calib_002,2023-11-01,US,Other,none,Chevron prices $1.5B three-year senior unsecured corporate notes at benchmark spread,CVX,XLE,SPY,1,Standard corporate debt paper issuance
+calib_003,2023-05-18,US,Other,none,Cisco Systems reports Q3 revenue matching guidance and affirms full-year targets,CSCO,XLK,SPY,1,Routine quarterly earnings report
+calib_004,2023-08-08,US,Other,none,Eli Lilly concludes $1.4B bolt-on acquisition of Dice Therapeutics,LLY,XLV,SPY,1,Minor tuck-in biotech acquisition
+calib_005,2023-06-29,US,Other,none,Morgan Stanley increases common stock dividend following Fed stress test review,MS,XLF,SPY,1,Routine post-CCAR capital return action
+calib_006,2023-10-18,US,Other,none,Procter and Gamble delivers 6% organic sales growth and maintains annual forecast,PG,XLP,SPY,1,Routine consumer goods earnings release
+calib_007,2023-10-11,US,Merger/Acquisition,merger_activity,ExxonMobil agrees to acquire Pioneer Natural Resources in $59.5B all-stock merger,XOM,XLE,SPY,1,Major upstream energy consolidation
+calib_008,2023-07-26,US,Macroeconomic,rate_hike,Federal Reserve raises federal funds rate by 25 basis points to 5.25%-5.50%,JPM,XLF,SPY,-1,Telegraphed policy rate increase
+calib_009,2024-01-08,US,Regulatory,regulatory_action,FAA orders temporary grounding of Boeing 737 MAX 9 fleet for door plug inspections,BA,ITA,SPY,-1,Localized safety inspection grounding
+calib_010,2023-04-12,US,Macroeconomic,rate_cut,Bank of Canada pauses interest rate hikes holding policy rate at 4.5%,RY,XLF,SPY,1,Central bank tightening cycle pause
+calib_011,2023-10-23,US,Merger/Acquisition,merger_activity,Chevron agrees to acquire Hess Corporation in $53B all-stock transaction,CVX,XLE,SPY,-1,Mega energy buyout with regulatory scrutiny
+calib_012,2023-08-15,US,Credit Event,credit_downgrade,Fitch warns of potential credit rating downgrades across US regional banking sector,KRE,XLF,SPY,-1,Rating agency industry-wide credit warning
+calib_013,2023-10-17,US,Regulatory,chip_supply_shock,US Commerce Department updates semiconductor export controls restricting AI chips to China,NVDA,SMH,SPY,-1,Tightened semiconductor export bans
+calib_014,2021-03-29,Europe,Credit Event,banking_stress,Archegos Capital prime brokerage margin default triggers forced liquidation block trades,UBS,XLF,SPY,-1,Major counterparty prime brokerage default
+calib_015,2023-03-10,US,Credit Event,banking_stress,Silicon Valley Bank enters FDIC receivership after $42B deposit run,KRE,XLF,SPY,-1,Systemic regional bank failure and liquidity run
+calib_016,2023-03-20,Europe,Credit Event,banking_stress,UBS completes emergency rescue takeover of Credit Suisse with complete AT1 wipeout,UBS,XLF,SPY,-1,Systemic European G-SIB emergency rescue
+calib_017,2022-02-24,Global,Geopolitical,sanctions,Russia initiates full-scale military campaign in Ukraine triggering sweeping sanctions,XOM,XLE,SPY,1,Outbreak of European conflict surging commodities
+calib_018,2023-12-15,Middle East,Geopolitical,shipping_disruption,Houthi missile strikes compel container fleets to suspend Red Sea transit indefinitely,ZIM,BDRY,SPY,1,Global maritime choke point rerouting and freight spike
+calib_019,2023-04-03,Global,Macroeconomic,oil_price_up,OPEC+ confirms surprise voluntary crude oil production cut of 1.16M bpd,XOM,XLE,SPY,1,Unscheduled OPEC cartel supply cut surging crude
+calib_020,2023-08-01,US,Credit Event,credit_downgrade,Fitch Ratings downgrades United States sovereign debt rating to AA+,JPM,XLF,SPY,-1,Sovereign rating downgrade of US government
+calib_021,2021-03-24,Global,Geopolitical,shipping_disruption,Ever Given container vessel runs aground completely blocking maritime transit in Suez Canal,ZIM,BDRY,SPY,1,Suez canal blockage freezing maritime trade
+calib_022,2020-03-09,Global,Macroeconomic,oil_price_down,Saudi Arabia initiates crude price war triggering 24% single-day oil price collapse,CVX,XLE,SPY,-1,Crude price war and market circuit breaker
+calib_023,2022-06-15,US,Macroeconomic,rate_hike,Federal Reserve implements 75 basis point interest rate hike to combat 8.6% inflation,JPM,XLF,SPY,-1,Aggressive 75bps rate hike shock
+calib_024,2016-06-24,Europe,Geopolitical,demand_shock,United Kingdom votes to leave European Union in Brexit referendum shock,BCS,XLF,SPY,-1,Historic Brexit referendum outcome

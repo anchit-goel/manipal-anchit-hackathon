@@ -361,18 +361,14 @@ class LLMClient:
             if must_require_llm:
                 raise RuntimeError("LLM execution required (--require-llm) but client is offline/no-key/quota exhausted.")
             logger.debug("Operating in offline/fallback mode. Using rules-fallback extractor.")
-            fallback_res = self.fallback.extract(user)
-            self._set_cached(key_hash, fallback_res)
-            return fallback_res
+            return self.fallback.extract(user)
 
         # 3. Check call quota limit
         if self.call_count >= MAX_LLM_CALLS:
             if must_require_llm:
                 raise RuntimeError(f"MAX_LLM_CALLS limit ({MAX_LLM_CALLS}) reached with --require-llm active.")
             logger.warning("MAX_LLM_CALLS limit (%d) reached. Falling back to rules.", MAX_LLM_CALLS)
-            fallback_res = self.fallback.extract(user)
-            self._set_cached(key_hash, fallback_res)
-            return fallback_res
+            return self.fallback.extract(user)
 
         # 4. Live execution with retry & backoff
         current_user_prompt = user
@@ -447,6 +443,4 @@ class LLMClient:
             raise RuntimeError(f"All LLM attempts exhausted with --require-llm: {last_error}")
 
         logger.warning("All LLM attempts exhausted. Using rules-fallback extractor.")
-        fallback_res = self.fallback.extract(user)
-        self._set_cached(key_hash, fallback_res)
-        return fallback_res
+        return self.fallback.extract(user)
