@@ -8,7 +8,7 @@
 - **Candidate Name**: Anchit Goel
 - **College**: Manipal Institute of Technology Bengaluru
 - **College Email**: anchit.mitblr2024@learner.manipal.edu
-- **Demo Video Link**: 
+- **Demo Video Link**: https://youtu.be/FOPGIL4Wuos
 - **Slide Deck**: [docs/presentation.pdf](docs/presentation.pdf)
 
 ---
