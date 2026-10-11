@@ -1,6 +1,5 @@
 """Exposure-aware stress engine: theme shocks transmitted by asset type, plus a naive uniform benchmark."""
 from typing import Dict, List, Optional, Tuple
-import uuid
 
 import pandas as pd
 
@@ -207,23 +206,3 @@ def run_custom(theme: str, severity: float, portfolio: Optional[pd.DataFrame] = 
     move = calibrated_move(severity, -1.0)[0]
     scale = severity_scale(severity, move)
     return _core([(theme, scale)], -abs(move), pf, tb, scenario_id=f"custom_{theme}_{severity:g}")
-
-
-def run_combined(scenarios, portfolio: Optional[pd.DataFrame] = None,
-                 table: Optional[pd.DataFrame] = None) -> StressResult:
-    """Combine concurrent scenarios: distinct themes sum per position, floor keeps losses <= exposure."""
-    pf = portfolio if portfolio is not None else load_portfolio()
-    tb = table if table is not None else load_shock_table()
-    comp: Dict[str, Tuple[float, str]] = {}
-    headline = 0.0
-    for sc in scenarios:
-        lead = sc.lead
-        scale = severity_scale(lead.impact_score, lead.calibrated_move_pct)
-        for t in _themes(lead.themes):
-            if t not in comp or scale > comp[t][0]:
-                comp[t] = (scale, lead.signal_id)  # same theme across scenarios counted once
-        headline += -abs(lead.calibrated_move_pct or 0.0)
-    return _core([(t, v[0], v[1]) for t, v in comp.items()], max(headline, -50.0), pf, tb,
-                 scenario_id="scn_combined_" + uuid.uuid4().hex[:6],
-                 lead_signal_id=scenarios[0].lead.signal_id if scenarios else None,
-                 corroborating=[s.lead.signal_id for s in scenarios[1:]])

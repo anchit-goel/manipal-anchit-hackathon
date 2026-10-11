@@ -1,7 +1,7 @@
 """Unit tests for Pydantic v2 schemas: RawItem, EventClass, and Signal."""
 import pytest
 from pydantic import ValidationError
-from src.schemas import EventClass, RawItem, Signal, SourceType
+from src.schemas import EventClass, RawItem, Signal
 
 
 def test_valid_raw_item():

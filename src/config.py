@@ -113,7 +113,6 @@ else:
 
 # Port configurations
 API_PORT = int(os.getenv("API_PORT", "8000"))
-STREAMLIT_PORT = int(os.getenv("STREAMLIT_PORT", "8501"))
 
 # Logging setup
 LOG_FORMAT = "%(asctime)s | %(levelname)-7s | %(name)s | %(message)s"

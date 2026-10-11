@@ -40,7 +40,6 @@ logger = get_logger("api.main")
 
 UI_DIST = BASE_DIR / "ui" / "dist"
 ANALYZE_TIMEOUT_S = 25.0
-DEMO_MODE_ENV = "SIGNAL_TO_SHOCK_MODE"
 
 app = FastAPI(
     title="Signal-to-Shock Risk API",

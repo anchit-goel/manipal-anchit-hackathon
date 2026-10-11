@@ -7,7 +7,6 @@ from fastapi.testclient import TestClient
 
 from src.api.main import app
 from src.schemas import Signal
-from src.stress import engine as eng
 from src.stress.engine import _core, position_shock, run_custom, severity_scale
 from src.stress.trigger import evaluate_signals, suppression_reason
 
