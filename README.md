@@ -5,10 +5,10 @@
 ---
 
 ### Candidate Information
-- **Candidate Name**: [TODO: Candidate Name] (Anchit Goel)
-- **College**: Manipal Academy of Higher Education (MAHE)
-- **College Email**: [TODO: College Email] (anchit.goel@learner.manipal.edu)
-- **Demo Video Link**: [TODO: Demo Video Link]
+- **Candidate Name**: Anchit Goel
+- **College**: Manipal Institute of Technology Bengaluru
+- **College Email**: anchit.mitblr2024@learner.manipal.edu
+- **Demo Video Link**: 
 - **Slide Deck**: [docs/presentation.pdf](docs/presentation.pdf)
 
 ---
@@ -268,7 +268,7 @@ manipal-anchit-hackathon/
 
 ## 8. AI Usage & Attribution
 
-- **LLM Assistance**: Google Antigravity IDE and Gemini models were utilized during development for code structuring, drafting unit tests, and designing synthetic evaluation scenarios.
+- **LLM Assistance**: Google IDE and Gemini models were utilized during development for code structuring, drafting unit tests, and designing synthetic evaluation scenarios.
 - **Architectural Validation**: All quantitative stress testing mechanics, financial formulas (loan LGD, bond duration, delta-MTM), and empirical event-study calibration models were verified by the author.
 - **Third-Party Open Source**:
   - `ProsusAI/finbert` for financial sentiment domain modeling.
