@@ -1,0 +1,24 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.6-flash",
+  "cached_at": "2026-10-11T10:36:36.143149+00:00",
+  "prompt_tokens": 5668,
+  "completion_tokens": 100,
+  "response": {
+    "entity": "OPEC Supply Cut",
+    "ticker": null,
+    "sector": "Energy",
+    "country": null,
+    "themes": [
+      "oil_price_up"
+    ],
+    "event_class": "Macroeconomic",
+    "sentiment_score": 0.7,
+    "impact_score": 7.8,
+    "claim_certainty": "confirmed",
+    "rationale": "OPEC announced formal crude supply reductions across Middle East facilities, placing immediate upward pressure on global benchmark oil prices and upstream sector margins.",
+    "pass2_impact": null,
+    "impact_disagreement": null,
+    "model_version": "gemini-gemini-3.6-flash"
+  }
+}
