@@ -45,10 +45,10 @@ Instead of applying arbitrary uniform percentage shocks or relying on black-box 
                  ▼
      [ Confidence Scoring & 48h Debounce Filter ]
          ├─ Suppressed (Low Confidence / Rumors) ──► Dimmed Audit Log
-         └─ Trigger Eligible (Impact >= 7.0 & Conf >= 0.75)
+         └─ Trigger Eligible (Impact >= 7.0 & Conf >= 0.60)
                  │
                  ▼
-     [ Calibrated Headline Shock (Empirical Power-Law / OLS Fit) ]
+     [ Calibrated Headline Shock (Empirical Linear OLS Fit, n=24) ]
                  │
                  ▼
      [ Exposure Transmission Matrix (Shock Table: Measured vs Assumed) ]
@@ -225,6 +225,7 @@ manipal-anchit-hackathon/
 │   ├── calibration.md          # Full empirical calibration report
 │   ├── engine_eval.md          # 25-sample ground truth evaluation report
 │   └── screenshots/            # High-resolution dashboard screenshots
+│       └── crops/              # Tightly cropped high-DPI panels for presentations
 ├── run_demo.py                 # Single-command offline replay server
 ├── scripts/
 │   ├── precache_presets.py     # Script caching interactive presets
