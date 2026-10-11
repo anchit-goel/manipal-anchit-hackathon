@@ -53,6 +53,7 @@ export const SignalCard: React.FC<SignalCardProps> = ({ signal, isSelected, onSe
 
   return (
     <div
+      id={`signal-card-${signal.signal_id}`}
       onClick={handleCardClick}
       className={`border rounded-lg transition-colors cursor-pointer text-left overflow-hidden ${
         isSelected
@@ -192,7 +193,7 @@ export const SignalCard: React.FC<SignalCardProps> = ({ signal, isSelected, onSe
               </span>
               {signal.calibrated_move_pct !== null && signal.calibrated_move_pct !== undefined && (
                 <span className="px-1.5 py-0.5 rounded text-[10px] bg-white border border-[#E3E6EB] text-[#0F1B2D] tabular-nums font-medium">
-                  Calibrated move: {formatPct(signal.calibrated_move_pct, 1)}
+                  Headline shock: {formatPct(signal.calibrated_move_pct, 1)}
                 </span>
               )}
             </div>

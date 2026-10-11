@@ -193,11 +193,12 @@ export const WhatIfTab: React.FC<WhatIfTabProps> = ({ onRunCustom, portfolio, lo
       </div>
 
       {/* Right Column: Live Stress Result (7 cols) */}
-      <div className="lg:col-span-7">
+      <div id="scenario-lab-stress-panel" className="lg:col-span-7">
         <StressPanel
           result={result}
           portfolio={portfolio}
           loading={localLoading || loading}
+          whatIfSeverity={severity}
           headline={`Custom What-If: ${humanizeTheme(selectedTheme)} at Severity ${severity.toFixed(1)}`}
         />
       </div>

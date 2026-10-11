@@ -373,7 +373,13 @@ export const App: React.FC = () => {
                 <StressPanel
                   result={stressResult}
                   portfolio={portfolio}
-                  leadSignal={selectedSignal}
+                  leadSignal={
+                    (stressResult?.lead_signal_id
+                      ? signals.find((s) => s.signal_id === stressResult.lead_signal_id)
+                      : null) ||
+                    selectedSignal ||
+                    null
+                  }
                   headline={
                     selectedSignal?.headline ||
                     signals.find((s) => s.signal_id === stressResult?.lead_signal_id)?.headline

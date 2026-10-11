@@ -278,10 +278,10 @@ export const AnalyzeTab: React.FC<AnalyzeTabProps> = ({
               </div>
             )}
 
-            {/* Calibrated Move */}
+            {/* Headline Shock Applied */}
             {analyzedSignal.calibrated_move_pct !== null && analyzedSignal.calibrated_move_pct !== undefined && (
               <div className="text-xs text-[#5B6676] bg-[#F2F4F7] p-2.5 rounded border border-[#EAECF0]">
-                Calibrated asset move: <strong className="text-[#0F1B2D]">{formatPct(analyzedSignal.calibrated_move_pct, 1)}</strong>
+                Headline shock applied: <strong className="text-[#0F1B2D]">{formatPct(analyzedSignal.calibrated_move_pct, 1)}</strong>
                 {analyzedSignal.calibrated_explanation && ` (${analyzedSignal.calibrated_explanation})`}
               </div>
             )}

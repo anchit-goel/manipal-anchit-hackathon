@@ -126,7 +126,7 @@ export const CalibrationTab: React.FC<CalibrationTabProps> = ({ data, loading })
       </div>
 
       {/* Scatter & Curve Chart */}
-      <div>
+      <div id="calibration-chart-card">
         <div className="text-xs font-semibold text-[#0F1B2D] mb-1">
           Historical Event Scatter &amp; Fitted Calibration Curve
         </div>

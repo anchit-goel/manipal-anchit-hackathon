@@ -29,6 +29,7 @@ interface StressPanelProps {
   loading?: boolean
   error?: string | null
   headline?: string
+  whatIfSeverity?: number
 }
 
 export const StressPanel: React.FC<StressPanelProps> = ({
@@ -38,6 +39,7 @@ export const StressPanel: React.FC<StressPanelProps> = ({
   loading,
   error,
   headline,
+  whatIfSeverity,
 }) => {
   const [sortField, setSortField] = useState<'pnl' | 'market_value' | 'counterparty'>('pnl')
   const [sortAsc, setSortAsc] = useState<boolean>(true) // default ascending shows worst losers first
@@ -165,6 +167,33 @@ export const StressPanel: React.FC<StressPanelProps> = ({
   const calHigh = leadSignal?.calibrated_high_pct ?? (calMove * 1.8)
   const rangeText = `${formatPct(calMove, 1)}, 80% range ${formatPct(calLow, 1)} to ${formatPct(calHigh, 1)}`
 
+  // What-if scenario check and user-chosen severity
+  const isWhatIf = Boolean(whatIfSeverity !== undefined || result.scenario_id.startsWith('custom_'))
+  const chosenSeverity = (() => {
+    if (whatIfSeverity !== undefined) return whatIfSeverity
+    if (result.scenario_id.startsWith('custom_')) {
+      const parts = result.scenario_id.split('_')
+      const num = parseFloat(parts[parts.length - 1])
+      if (!isNaN(num) && num > 0) {
+        return num >= 10 ? num / 10 : num
+      }
+    }
+    return 8.0
+  })()
+
+  // Signal-driven impact score (e.g. 8.8 for Red Sea)
+  // Strictly avoid exposing raw severity_scale multiplier under an impact label
+  const signalImpactScore = (() => {
+    if (leadSignal?.impact_score !== undefined && leadSignal.impact_score !== null) {
+      return leadSignal.impact_score
+    }
+    if (result.headline_move_pct) {
+      const inferred = Math.abs(result.headline_move_pct) - 0.53
+      return Math.max(1.0, Math.min(10.0, Math.round(inferred * 10) / 10))
+    }
+    return 8.0
+  })()
+
   // Top movers for horizontal bar chart
   const topMovers = [...(result.positions || [])]
     .sort((a, b) => Math.abs(b.pnl) - Math.abs(a.pnl))
@@ -203,13 +232,17 @@ export const StressPanel: React.FC<StressPanelProps> = ({
               {isLoss ? 'Scenario stress loss' : isGain ? 'Scenario net gain' : 'Neutral shock'}
             </span>
             <span className="text-xs text-[#5B6676]">
-              Impact score: <strong className="text-[#0F1B2D]">{result.severity_scale.toFixed(1)}</strong>
+              {isWhatIf ? (
+                <>Severity: <strong className="text-[#0F1B2D]">{chosenSeverity.toFixed(1)}</strong></>
+              ) : (
+                <>Impact score: <strong className="text-[#0F1B2D]">{signalImpactScore.toFixed(1)}</strong></>
+              )}
             </span>
           </div>
 
-          {/* Calibrated move 80% range */}
+          {/* Headline shock applied 80% range */}
           <div className="text-xs text-[#5B6676] bg-[#F9FAFB] px-2.5 py-1 rounded border border-[#E3E6EB] tabular-nums">
-            Calibrated asset move: <strong className="text-[#0F1B2D]">{rangeText}</strong>
+            Headline shock applied: <strong className="text-[#0F1B2D]">{rangeText}</strong>
           </div>
         </div>
 
