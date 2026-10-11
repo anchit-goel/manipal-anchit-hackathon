@@ -1,0 +1,11 @@
+# Optional: live mode (LLM extraction, FinBERT inference, news/price pulls) and data regeneration
+# (event study, calibration fit, plots). Install on top of the light file:
+#   pip install -r requirements-live.txt
+-r requirements.txt
+torch>=2.2.0
+transformers>=4.38.0
+yfinance>=0.2.36
+google-generativeai>=0.8.0
+openai>=1.20.0
+matplotlib>=3.8.0
+scikit-learn>=1.4.0
